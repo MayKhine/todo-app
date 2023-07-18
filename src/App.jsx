@@ -8,7 +8,9 @@ function App() {
     const [projectArr, setProjectArr] = useState([])
     const [showProjectInput, setShowProjectInput] = useState(false)
     const [projectText, setProjectText] = useState('')
-    // const [toggleButton, setToggleButton] = useState(true)
+    const [menuActive, setMenuActive] = useState(false)
+
+    const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
 
     return (
         <div style={{ fontFamily: 'Verdana', fontSize: '15px' }}>
@@ -19,7 +21,6 @@ function App() {
                 style={{
                     display: 'flex',
                     flexDirection: 'row',
-                    // position: 'relative',
                     flexWrap: 'wrap',
                 }}
             >
@@ -28,12 +29,7 @@ function App() {
                         className="toggleButton"
                         onClick={() => {
                             console.log('Toggle is clicked')
-                            // setToggleButton(!toggleButton)
-
-                            const projectList =
-                                document.getElementById('projectList')
-                            console.log(projectList)
-                            projectList.classList.toggle('active')
+                            setMenuActive(!menuActive)
                         }}
                     >
                         <span className="bar"></span>
@@ -41,7 +37,10 @@ function App() {
                         <span className="bar"></span>
                     </div>
                     {
-                        <projectList id="projectList" className="projectList">
+                        <projectList
+                            id="projectList"
+                            className={projectListClasses}
+                        >
                             <ul>
                                 <li
                                     className="projectItem"
@@ -67,9 +66,7 @@ function App() {
                 </leftSec>
                 <rightSec
                     style={{
-                        // width: '100%',
                         backgroundColor: 'lightblue',
-                        // flexGrow: '1',
                         flex: '1',
                     }}
                 >
