@@ -22,14 +22,13 @@
     border-radius: 20px;
 }
 
-#leftSec {
+/* #leftSec {
     background-color: lightblue;
-    /* width: 100%; */
-}
+} */
 
-.projectItem {
+/* .projectItem {
     width: 100%;
-}
+} */
 
 @media (max-width: 650px) {
     .toggleButton {

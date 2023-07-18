@@ -24,7 +24,7 @@ function App() {
                     flexWrap: 'wrap',
                 }}
             >
-                <leftSec id="leftSec">
+                <leftSec id="leftSec" style={leftSecStyle}>
                     <div
                         className="toggleButton"
                         onClick={() => {
@@ -165,7 +165,11 @@ const buttonStyle = {
     margin: '5px 5px 5px 5px',
 }
 
+const leftSecStyle = {
+    backgroundColor: 'gray',
+}
 const projectItemStyle = {
+    backgroundColor: 'lightgray',
     width: '300px',
     padding: '5px 5px 5px 5px',
 }
