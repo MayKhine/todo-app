@@ -1,7 +1,36 @@
 #root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+    /* max-width: 1280px; */
+    margin: 0 auto;
+    /* padding: 2rem; */
+    text-align: center;
+    background-color: gray;
 }
 
+.toggle-button {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 30px;
+    height: 21px;
+    /* background-color: lightblue; */
+}
+
+.toggle-button .bar {
+    height: 5px;
+    width: 100%;
+    /* color: blue; */
+    background-color: blue;
+    border-radius: 20px;
+}
+
+@media (max-width: 600px) {
+    .toggle-button {
+        display: flex;
+    }
+    .projectList {
+        display: none;
+    }
+}
