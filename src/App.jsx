@@ -8,7 +8,7 @@ function App() {
     const [projectArr, setProjectArr] = useState([])
     const [showProjectInput, setShowProjectInput] = useState(false)
     const [projectText, setProjectText] = useState('')
-    const [toggleButton, setToggleButton] = useState(false)
+    // const [toggleButton, setToggleButton] = useState(true)
 
     return (
         <div style={{ fontFamily: 'Verdana', fontSize: '15px' }}>
@@ -28,7 +28,12 @@ function App() {
                         className="toggleButton"
                         onClick={() => {
                             console.log('Toggle is clicked')
-                            setToggleButton(true)
+                            // setToggleButton(!toggleButton)
+
+                            const projectList =
+                                document.getElementById('projectList')
+                            console.log(projectList)
+                            projectList.classList.toggle('active')
                         }}
                     >
                         <span className="bar"></span>
@@ -36,7 +41,7 @@ function App() {
                         <span className="bar"></span>
                     </div>
                     {
-                        <projectList className="projectList">
+                        <projectList id="projectList" className="projectList">
                             <ul>
                                 <li
                                     className="projectItem"
@@ -161,11 +166,6 @@ const buttonStyle = {
     fontSize: '1em',
     cursor: 'pointer',
     margin: '5px 5px 5px 5px',
-}
-
-const leftSecStyle = {
-    backgroundColor: 'lightgray',
-    // width: '500px',
 }
 
 const projectItemStyle = {

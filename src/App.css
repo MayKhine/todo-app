@@ -23,7 +23,7 @@
 }
 
 #leftSec {
-    background-color: blue;
+    background-color: lightblue;
     /* width: 100%; */
 }
 
@@ -37,13 +37,19 @@
     }
 
     .projectList {
-        display: flex;
+        display: none;
         width: 100%;
+        align-items: center;
+        justify-content: center;
     }
 
     .projectList ul {
+        background-color: gray;
+        display: flex;
         width: 100%;
-        text-align: center;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
     }
     .projectList li {
         text-align: center;
@@ -51,7 +57,6 @@
     }
     .projectItem {
         width: 100%;
-        background-color: red;
     }
     .projectList.active {
         display: flex;
