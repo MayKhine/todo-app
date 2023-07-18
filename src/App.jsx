@@ -8,54 +8,64 @@ function App() {
     const [projectArr, setProjectArr] = useState([])
     const [showProjectInput, setShowProjectInput] = useState(false)
     const [projectText, setProjectText] = useState('')
-
-    // button style
-    const buttonStyle = {
-        color: 'black',
-        backgroundColor: 'lightgray',
-        borderRadius: '8px',
-        border: '1px solid transparent',
-        padding: '.5em .5em',
-        fontSize: '1em',
-        cursor: 'pointer',
-        margin: '5px 5px 5px 5px',
-    }
-
-    const leftSecStyle = {
-        // backgroundColor: 'gray',
-        width: '300px',
-        // fontSize: '30px',
-        // fontStyle: 'bold',
-        '@media (max-width: 800px)': {
-            backgroundColor: 'blue',
-        },
-    }
+    const [toggleButton, setToggleButton] = useState(false)
 
     return (
         <div style={{ fontFamily: 'Verdana', fontSize: '15px' }}>
             <header style={{ fontSize: '30px', fontStyle: 'bold' }}>
                 TodoApp
             </header>
-            <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    // position: 'relative',
+                    flexWrap: 'wrap',
+                }}
+            >
                 <leftSec id="leftSec">
-                    <a href="#" class="toggle-button">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </a>
-                    <projectList class="projectList">
-                        <ul>
-                            <li>Test1</li>
-                            <li>Test2</li>
-                            <li>Test3</li>
-                        </ul>
-                    </projectList>
+                    <div
+                        className="toggleButton"
+                        onClick={() => {
+                            console.log('Toggle is clicked')
+                            setToggleButton(true)
+                        }}
+                    >
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                    </div>
+                    {
+                        <projectList className="projectList">
+                            <ul>
+                                <li
+                                    className="projectItem"
+                                    style={projectItemStyle}
+                                >
+                                    Home
+                                </li>
+                                <li
+                                    className="projectItem"
+                                    style={projectItemStyle}
+                                >
+                                    Today
+                                </li>
+                                <li
+                                    className="projectItem"
+                                    style={projectItemStyle}
+                                >
+                                    Important
+                                </li>
+                            </ul>
+                        </projectList>
+                    }
                 </leftSec>
                 <rightSec
                     style={{
-                        width: '100%',
+                        // width: '100%',
                         backgroundColor: 'lightblue',
-                        flexGrow: '1',
+                        // flexGrow: '1',
+                        flex: '1',
                     }}
                 >
                     hi
@@ -140,3 +150,25 @@ function App() {
 }
 
 export default App
+
+// button style
+const buttonStyle = {
+    color: 'black',
+    backgroundColor: 'lightgray',
+    borderRadius: '8px',
+    border: '1px solid transparent',
+    padding: '.5em .5em',
+    fontSize: '1em',
+    cursor: 'pointer',
+    margin: '5px 5px 5px 5px',
+}
+
+const leftSecStyle = {
+    backgroundColor: 'lightgray',
+    // width: '500px',
+}
+
+const projectItemStyle = {
+    width: '300px',
+    padding: '5px 5px 5px 5px',
+}

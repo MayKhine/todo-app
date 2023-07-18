@@ -1,12 +1,10 @@
 #root {
-    /* max-width: 1280px; */
     margin: 0 auto;
-    /* padding: 2rem; */
     text-align: center;
-    background-color: gray;
+    background-color: lightcyan;
 }
 
-.toggle-button {
+.toggleButton {
     position: absolute;
     top: 0.75rem;
     right: 1rem;
@@ -15,22 +13,60 @@
     justify-content: space-between;
     width: 30px;
     height: 21px;
-    /* background-color: lightblue; */
 }
 
-.toggle-button .bar {
-    height: 5px;
+.toggleButton .bar {
+    height: 4px;
     width: 100%;
-    /* color: blue; */
-    background-color: blue;
+    background-color: gray;
     border-radius: 20px;
 }
 
-@media (max-width: 600px) {
-    .toggle-button {
+#leftSec {
+    background-color: blue;
+    /* width: 100%; */
+}
+
+.projectItem {
+    width: 100%;
+}
+
+@media (max-width: 650px) {
+    .toggleButton {
         display: flex;
     }
+
     .projectList {
-        display: none;
+        display: flex;
+        width: 100%;
     }
+
+    .projectList ul {
+        width: 100%;
+        text-align: center;
+    }
+    .projectList li {
+        text-align: center;
+        width: 100%;
+    }
+    .projectItem {
+        width: 100%;
+        background-color: red;
+    }
+    .projectList.active {
+        display: flex;
+    }
+
+    #leftSec {
+        width: 100%;
+    }
+}
+
+#leftSec ul {
+    margin: 0;
+    padding: 0;
+}
+
+#leftSec li {
+    list-style: none;
 }
