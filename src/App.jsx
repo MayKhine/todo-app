@@ -2,10 +2,25 @@ import { useState } from 'react'
 import './App.css'
 
 function App() {
+    // for all todos
     const [todoArr, setTodoArr] = useState([])
+
+    // project list arry [[], [], []]
+    const [projectArr, setProjectArr] = useState([])
+
+    const createTodo = (todo, date, priority, project) => {
+        setTodoArr((todoArr) => [
+            ...todoArr,
+            { name: todo, date: date, priority: priority, project: project },
+        ])
+    }
+
+    const createProject = (projectName) => {
+        setProjectArr((projectArr) => [...projectArr, projectName])
+    }
+
     const [showTodoInput, setShowTodoInput] = useState(false)
     const [todoText, setTodoText] = useState('')
-    const [projectArr, setProjectArr] = useState([])
     const [showProjectInput, setShowProjectInput] = useState(false)
     const [projectText, setProjectText] = useState('')
     const [menuActive, setMenuActive] = useState(false)
@@ -24,7 +39,7 @@ function App() {
                     flexWrap: 'wrap',
                 }}
             >
-                <leftSec id="leftSec" style={leftSecStyle}>
+                <div id="leftSec" style={leftSecStyle}>
                     <div
                         className="toggleButton"
                         onClick={() => {
@@ -37,10 +52,7 @@ function App() {
                         <span className="bar"></span>
                     </div>
                     {
-                        <projectList
-                            id="projectList"
-                            className={projectListClasses}
-                        >
+                        <div id="projectList" className={projectListClasses}>
                             <ul>
                                 <li
                                     className="projectItem"
@@ -61,10 +73,11 @@ function App() {
                                     Important
                                 </li>
                             </ul>
-                        </projectList>
+                        </div>
                     }
-                </leftSec>
-                <rightSec
+                </div>
+                <div
+                    id="rightSec"
                     style={{
                         backgroundColor: 'lightblue',
                         flex: '1',
@@ -94,10 +107,12 @@ function App() {
                                     style={buttonStyle}
                                     onClick={() => {
                                         setShowTodoInput(false)
-                                        setTodoArr((todoArr) => [
-                                            ...todoArr,
+                                        createTodo(
                                             todoText,
-                                        ])
+                                            'date to fill',
+                                            'priority',
+                                            'proj category'
+                                        )
                                         setTodoText('')
                                     }}
                                 >
@@ -131,10 +146,7 @@ function App() {
                                     style={buttonStyle}
                                     onClick={() => {
                                         setShowProjectInput(false)
-                                        setProjectArr((projectArr) => [
-                                            ...projectArr,
-                                            projectText,
-                                        ])
+                                        createProject(projectText)
                                         setProjectText('')
                                     }}
                                 >
@@ -143,9 +155,13 @@ function App() {
                             </>
                         )}
                     </div>
-                    <div>{todoArr}</div>
+                    <div>
+                        {todoArr.forEach((e) =>
+                            console.log('e:', e, todoArr.length)
+                        )}
+                    </div>
                     <div>{projectArr}</div>
-                </rightSec>
+                </div>
             </div>
         </div>
     )
