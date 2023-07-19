@@ -1,19 +1,25 @@
 import { useState } from 'react'
 import './App.css'
+import { TodoList } from './TodoList'
+import { useEffect } from 'react'
 
 function App() {
     // for all todos
-    const [todoArr, setTodoArr] = useState([])
+    const [todoArr, setTodoArr] = useState(
+        JSON.parse(localStorage.getItem('todoArr')) || []
+    )
 
     // project list arry [[], [], []]
-    const [projectArr, setProjectArr] = useState([])
+    // const [projectArr, setProjectArr] = useState([])
+    const [projectArr, setProjectArr] = useState(
+        JSON.parse(localStorage.getItem('projectArr')) || []
+    )
 
     const [showTodoInput, setShowTodoInput] = useState(false)
     const [todoText, setTodoText] = useState('')
     const [showProjectInput, setShowProjectInput] = useState(false)
     const [projectText, setProjectText] = useState('')
     const [menuActive, setMenuActive] = useState(false)
-    // const [menuButtonColor, setMenuButtonColor] = useState('gray')
     const [showHomeTodo, setShowHomeTodo] = useState(false)
     const [showTodyTodo, setShowTodayTodo] = useState(false)
     const [showThisWeekTodo, setShowThisWeekTodo] = useState(false)
@@ -23,7 +29,12 @@ function App() {
     const createTodo = (todo, date, priority, project) => {
         setTodoArr((todoArr) => [
             ...todoArr,
-            { name: todo, date: date, priority: priority, project: project },
+            {
+                name: todo,
+                date: date,
+                priority: priority,
+                project: project,
+            },
         ])
     }
 
@@ -55,6 +66,14 @@ function App() {
     const showThisProject = (project) => {
         //show this project code
     }
+
+    useEffect(() => {
+        localStorage.setItem('todoArr', JSON.stringify(todoArr))
+    }, [todoArr])
+
+    useEffect(() => {
+        localStorage.setItem('projectArr', JSON.stringify(projectArr))
+    }, [projectArr])
 
     return (
         <div
@@ -141,9 +160,9 @@ function App() {
                         )}
                     </div>
                     <div>
-                        {todoArr.forEach((e) =>
+                        {/* {todoArr.forEach((e) =>
                             console.log('e:', e, todoArr.length)
-                        )}
+                        )} */}
                     </div>
                 </>
             </div>
@@ -193,7 +212,7 @@ function App() {
                         flex: '1',
                     }}
                 >
-                    <TodoList />
+                    <TodoList listArr={todoArr} />
                 </div>
             </div>
         </div>
@@ -201,14 +220,6 @@ function App() {
 }
 
 export default App
-
-const TodoList = () => {
-    // todoList.forEach((e) => {
-    //     console.log(e)
-    // })
-
-    return <>HI</>
-}
 
 // button style
 const buttonStyle = {
