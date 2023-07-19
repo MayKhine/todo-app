@@ -8,6 +8,18 @@ function App() {
     // project list arry [[], [], []]
     const [projectArr, setProjectArr] = useState([])
 
+    const [showTodoInput, setShowTodoInput] = useState(false)
+    const [todoText, setTodoText] = useState('')
+    const [showProjectInput, setShowProjectInput] = useState(false)
+    const [projectText, setProjectText] = useState('')
+    const [menuActive, setMenuActive] = useState(false)
+    // const [menuButtonColor, setMenuButtonColor] = useState('gray')
+    const [showHomeTodo, setShowHomeTodo] = useState(false)
+    const [showTodyTodo, setShowTodayTodo] = useState(false)
+    const [showThisWeekTodo, setShowThisWeekTodo] = useState(false)
+
+    const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
+
     const createTodo = (todo, date, priority, project) => {
         setTodoArr((todoArr) => [
             ...todoArr,
@@ -19,71 +31,44 @@ function App() {
         setProjectArr((projectArr) => [...projectArr, projectName])
     }
 
-    const [showTodoInput, setShowTodoInput] = useState(false)
-    const [todoText, setTodoText] = useState('')
-    const [showProjectInput, setShowProjectInput] = useState(false)
-    const [projectText, setProjectText] = useState('')
-    const [menuActive, setMenuActive] = useState(false)
+    const showHome = () => {
+        if (!showHomeTodo) {
+            setShowHomeTodo(true)
+        }
+        console.log('showHomeTodo: ', showHomeTodo)
+    }
 
-    const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
+    const showToday = () => {
+        if (!showTodyTodo) {
+            setShowTodayTodo(true)
+        }
+        console.log('showTodyTodo: ', showTodyTodo)
+    }
+
+    const showThisWeek = () => {
+        if (!showThisWeekTodo) {
+            setShowThisWeekTodo(true)
+        }
+        console.log('showThisWeekTodo: ', showThisWeekTodo)
+    }
+
+    const showThisProject = (project) => {
+        //show this project code
+    }
 
     return (
-        <div style={{ fontFamily: 'Verdana', fontSize: '15px' }}>
-            <header style={{ fontSize: '30px', fontStyle: 'bold' }}>
+        <div
+            id="container"
+            style={{
+                fontFamily: 'Verdana',
+                fontSize: '15px',
+                // width: '100vw',
+                height: '100vh',
+            }}
+        >
+            <div style={{ fontSize: '20px', fontStyle: 'bold' }}>
                 TodoApp
-            </header>
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    flexWrap: 'wrap',
-                }}
-            >
-                <div id="leftSec" style={leftSecStyle}>
-                    <div
-                        className="toggleButton"
-                        onClick={() => {
-                            console.log('Toggle is clicked')
-                            setMenuActive(!menuActive)
-                        }}
-                    >
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                        <span className="bar"></span>
-                    </div>
-                    {
-                        <div id="projectList" className={projectListClasses}>
-                            <ul>
-                                <li
-                                    className="projectItem"
-                                    style={projectItemStyle}
-                                >
-                                    Home
-                                </li>
-                                <li
-                                    className="projectItem"
-                                    style={projectItemStyle}
-                                >
-                                    Today
-                                </li>
-                                <li
-                                    className="projectItem"
-                                    style={projectItemStyle}
-                                >
-                                    Important
-                                </li>
-                            </ul>
-                        </div>
-                    }
-                </div>
-                <div
-                    id="rightSec"
-                    style={{
-                        backgroundColor: 'lightblue',
-                        flex: '1',
-                    }}
-                >
-                    hi
+                <>
                     <div id="todo">
                         {!showTodoInput && (
                             <button
@@ -160,7 +145,55 @@ function App() {
                             console.log('e:', e, todoArr.length)
                         )}
                     </div>
-                    <div>{projectArr}</div>
+                </>
+            </div>
+
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    flexWrap: 'wrap',
+                }}
+            >
+                <div id="leftSec" style={leftSecStyle}>
+                    <div
+                        className="toggleButton"
+                        onClick={() => {
+                            console.log('Toggle is clicked')
+                            setMenuActive(!menuActive)
+                        }}
+                    >
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                        <span className="bar"></span>
+                    </div>
+                    {
+                        <div id="projectList" className={projectListClasses}>
+                            <ul>
+                                <li className="projectItem" onClick={showHome}>
+                                    Home
+                                </li>
+                                <li className="projectItem" onClick={showToday}>
+                                    Today
+                                </li>
+                                <li
+                                    className="projectItem"
+                                    onClick={showThisWeek}
+                                >
+                                    This Week
+                                </li>
+                            </ul>
+                        </div>
+                    }
+                </div>
+                <div
+                    id="rightSec"
+                    style={{
+                        backgroundColor: 'lightblue',
+                        flex: '1',
+                    }}
+                >
+                    <TodoList />
                 </div>
             </div>
         </div>
@@ -168,6 +201,14 @@ function App() {
 }
 
 export default App
+
+const TodoList = () => {
+    // todoList.forEach((e) => {
+    //     console.log(e)
+    // })
+
+    return <>HI</>
+}
 
 // button style
 const buttonStyle = {
@@ -183,9 +224,4 @@ const buttonStyle = {
 
 const leftSecStyle = {
     backgroundColor: 'gray',
-}
-const projectItemStyle = {
-    backgroundColor: 'lightgray',
-    width: '300px',
-    padding: '5px 5px 5px 5px',
 }

@@ -30,6 +30,16 @@
     width: 100%;
 } */
 
+.projectItem {
+    background-color: pink;
+    width: 300px;
+    padding: 5px 5px 5px 5px;
+}
+
+.projectItem:hover {
+    background-color: palevioletred;
+}
+
 @media (max-width: 650px) {
     .toggleButton {
         display: flex;
