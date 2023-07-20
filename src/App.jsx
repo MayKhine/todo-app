@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import { TodoList } from './TodoList'
 import { useEffect } from 'react'
-
+import { ProjectList } from './ProjectList'
 function App() {
     // for all todos
     const [todoArr, setTodoArr] = useState(
@@ -42,25 +42,36 @@ function App() {
         setProjectArr((projectArr) => [...projectArr, projectName])
     }
 
+    const showThisOne = (cur) => {
+        const buttonArr = ['Home', 'Today', 'ThisWeek']
+        buttonArr.forEach((e) => {
+            if (e === cur.target.id) {
+                console.log(cur.target.id, 'is clicked')
+            }
+        })
+    }
+
+    // const [showTodoForThisButton, setShowTodoForThisButton] = useState()
+
     const showHome = () => {
         if (!showHomeTodo) {
             setShowHomeTodo(true)
         }
-        console.log('showHomeTodo: ', showHomeTodo)
+        console.log('showHomeTodo is clicked', showHomeTodo)
     }
 
     const showToday = () => {
         if (!showTodyTodo) {
             setShowTodayTodo(true)
         }
-        console.log('showTodyTodo: ', showTodyTodo)
+        console.log('showTodyTodo is clicked ')
     }
 
     const showThisWeek = () => {
         if (!showThisWeekTodo) {
             setShowThisWeekTodo(true)
         }
-        console.log('showThisWeekTodo: ', showThisWeekTodo)
+        console.log('showThisWeekTodo  is clicked ', showThisWeekTodo)
     }
 
     const showThisProject = (project) => {
@@ -189,18 +200,30 @@ function App() {
                     {
                         <div id="projectList" className={projectListClasses}>
                             <ul>
-                                <li className="projectItem" onClick={showHome}>
+                                <li
+                                    id="Home"
+                                    className="projectItem" //onClick={showHome}
+                                    onClick={showThisOne}
+                                >
                                     Home
                                 </li>
-                                <li className="projectItem" onClick={showToday}>
+                                <li
+                                    id="Today"
+                                    className="projectItem" //onClick={showToday}
+                                    onClick={showThisOne}
+                                >
                                     Today
                                 </li>
                                 <li
+                                    id="ThisWeek"
                                     className="projectItem"
-                                    onClick={showThisWeek}
+                                    onClick={showThisOne}
+                                    //onClick={showThisWeek}
                                 >
                                     This Week
                                 </li>
+
+                                <ProjectList projArr={projectArr}></ProjectList>
                             </ul>
                         </div>
                     }
@@ -212,7 +235,9 @@ function App() {
                         flex: '1',
                     }}
                 >
-                    <TodoList listArr={todoArr} />
+                    {showHomeTodo && <TodoList listArr={todoArr} />}
+                    {showTodyTodo && <>TODAYYYYY</>}
+                    {showThisWeekTodo && <>THIS WEEEEEEk</>}
                 </div>
             </div>
         </div>

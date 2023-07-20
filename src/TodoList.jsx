@@ -1,8 +1,7 @@
 export const TodoList = (props) => {
     //listArr
-    console.log('props:', props.listArr)
 
-    const output = props.listArr.map((e, index) => (
+    const output = props.listArr?.map((e, index) => (
         // console.log(e.name)
         // Todo(e.name)
         <div key={index}>
@@ -10,11 +9,10 @@ export const TodoList = (props) => {
         </div>
     ))
     // return <>Hi Helloddd</>
-    return <>Hi {output}</>
+    return <>{output}</>
 }
 
 const Todo = (props) => {
-    console.log('Todo props: ', props)
     return (
         <>
             <div>
