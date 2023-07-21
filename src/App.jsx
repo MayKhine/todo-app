@@ -8,9 +8,8 @@ function App() {
     const [todoArr, setTodoArr] = useState(
         JSON.parse(localStorage.getItem('todoArr')) || []
     )
+    const [visibleTodoArr, setVisibleTodoArr] = useState([])
 
-    // project list arry [[], [], []]
-    // const [projectArr, setProjectArr] = useState([])
     const [projectArr, setProjectArr] = useState(
         JSON.parse(localStorage.getItem('projectArr')) || []
     )
@@ -20,9 +19,6 @@ function App() {
     const [showProjectInput, setShowProjectInput] = useState(false)
     const [projectText, setProjectText] = useState('')
     const [menuActive, setMenuActive] = useState(false)
-    const [showHomeTodo, setShowHomeTodo] = useState(false)
-    const [showTodyTodo, setShowTodayTodo] = useState(false)
-    const [showThisWeekTodo, setShowThisWeekTodo] = useState(false)
 
     const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
 
@@ -42,36 +38,42 @@ function App() {
         setProjectArr((projectArr) => [...projectArr, projectName])
     }
 
-    const showThisOne = (cur) => {
-        const buttonArr = ['Home', 'Today', 'ThisWeek']
-        buttonArr.forEach((e) => {
-            if (e === cur.target.id) {
-                console.log(cur.target.id, 'is clicked')
-            }
-        })
-    }
-
-    // const [showTodoForThisButton, setShowTodoForThisButton] = useState()
-
     const showHome = () => {
-        if (!showHomeTodo) {
-            setShowHomeTodo(true)
-        }
-        console.log('showHomeTodo is clicked', showHomeTodo)
+        setVisibleTodoArr(todoArr)
     }
 
     const showToday = () => {
-        if (!showTodyTodo) {
-            setShowTodayTodo(true)
-        }
-        console.log('showTodyTodo is clicked ')
+        setVisibleTodoArr([
+            {
+                name: 'todoay',
+                date: 'date to fill',
+                priority: 'priority',
+                project: 'proj category',
+            },
+            {
+                name: 'today',
+                date: 'date to fill',
+                priority: 'priority',
+                project: 'proj category',
+            },
+        ])
     }
 
     const showThisWeek = () => {
-        if (!showThisWeekTodo) {
-            setShowThisWeekTodo(true)
-        }
-        console.log('showThisWeekTodo  is clicked ', showThisWeekTodo)
+        setVisibleTodoArr([
+            {
+                name: 'this weeeeek',
+                date: 'date to fill',
+                priority: 'priority',
+                project: 'proj category',
+            },
+            {
+                name: 'this weeeekkkk',
+                date: 'date to fill',
+                priority: 'priority',
+                project: 'proj category',
+            },
+        ])
     }
 
     const showThisProject = (project) => {
@@ -170,11 +172,6 @@ function App() {
                             </>
                         )}
                     </div>
-                    <div>
-                        {/* {todoArr.forEach((e) =>
-                            console.log('e:', e, todoArr.length)
-                        )} */}
-                    </div>
                 </>
             </div>
 
@@ -202,23 +199,22 @@ function App() {
                             <ul>
                                 <li
                                     id="Home"
-                                    className="projectItem" //onClick={showHome}
-                                    onClick={showThisOne}
+                                    className="projectItem"
+                                    onClick={showHome}
                                 >
                                     Home
                                 </li>
                                 <li
                                     id="Today"
-                                    className="projectItem" //onClick={showToday}
-                                    onClick={showThisOne}
+                                    className="projectItem"
+                                    onClick={showToday}
                                 >
                                     Today
                                 </li>
                                 <li
                                     id="ThisWeek"
                                     className="projectItem"
-                                    onClick={showThisOne}
-                                    //onClick={showThisWeek}
+                                    onClick={showThisWeek}
                                 >
                                     This Week
                                 </li>
@@ -235,9 +231,7 @@ function App() {
                         flex: '1',
                     }}
                 >
-                    {showHomeTodo && <TodoList listArr={todoArr} />}
-                    {showTodyTodo && <>TODAYYYYY</>}
-                    {showThisWeekTodo && <>THIS WEEEEEEk</>}
+                    <TodoList listArr={visibleTodoArr} />
                 </div>
             </div>
         </div>
