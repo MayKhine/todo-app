@@ -5,30 +5,42 @@ import { useEffect } from 'react'
 import { ProjectList } from './ProjectList'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
+import { DateTime } from 'luxon'
 
 function App() {
-    // for all todos
     const [todoArr, setTodoArr] = useState(
         JSON.parse(localStorage.getItem('todoArr')) || []
     )
-    const [visibleTodoArr, setVisibleTodoArr] = useState([])
-
+    const [visibleTodoArr, setVisibleTodoArr] = useState(todoArr) // null
     const [projectArr, setProjectArr] = useState(
         JSON.parse(localStorage.getItem('projectArr')) || []
     )
 
     const [showTodoInput, setShowTodoInput] = useState(false)
-    const [todoText, setTodoText] = useState('')
     const [showProjectInput, setShowProjectInput] = useState(false)
+
     const [projectText, setProjectText] = useState('')
+
+    //creating todo task
+    const [todoText, setTodoText] = useState('')
     const [menuActive, setMenuActive] = useState(false)
     const [todoDueDate, setTodoDueDate] = useState() //new Date()
     const [todoPriority, setTodoPriority] = useState(0) // num
     // const [showPriorityDropDown, setshowPriorityDropDown] = useState(false)
 
     const priorityValueArr = ['Low', 'Medium', 'High']
-
     const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
+
+    // const today = DateTime.now()
+
+    // console.log(
+    //     'Today: ',
+    //     today,
+    //     'updated Today: ',
+    //     today.toLocaleString(DateTime.DATE_SHORT),
+    //     'updated Today2: ',
+    //     today.toLocaleString(DateTime.DATETIME_FULL)
+    // )
 
     const formatDate = (longDate) => {
         return (
@@ -40,50 +52,49 @@ function App() {
             longDate.getFullYear()
         )
     }
+
     const createTodo = (todo, dueDate, priority, project) => {
-        setTodoArr((todoArr) => [
+        const newTodo = [
             ...todoArr,
             {
                 name: todo,
-                date: dueDate ? formatDate(dueDate) : 'no date', // or it can be today date
+                date: dueDate ? formatDate(dueDate) : 'no date',
                 priority: priority, //when null, it's low priority
                 project: project,
             },
-        ])
+        ]
+
+        setTodoArr(newTodo)
 
         setTodoText('')
         setTodoDueDate()
         setTodoPriority(0)
-        showHome()
+        // setVisibleTodoArr(newTodo)
+        showHome(newTodo)
     }
 
     const createProject = (projectName) => {
         setProjectArr((projectArr) => [...projectArr, projectName])
     }
 
-    const showHome = () => {
-        setVisibleTodoArr(todoArr)
+    const showHome = (curTodoArr) => {
+        console.log('Does it contain latest update: ', curTodoArr)
+        setVisibleTodoArr(curTodoArr)
         console.log('SetVisibleTodoarry is updated', visibleTodoArr)
     }
 
-    const showToday = () => {
-        setVisibleTodoArr([
-            {
-                name: 'todoay',
-                date: 'date to fill',
-                priority: 'priority',
-                project: 'proj category',
-            },
-            {
-                name: 'today',
-                date: 'date to fill',
-                priority: 'priority',
-                project: 'proj category',
-            },
-        ])
+    const showToday = (curTodoArr) => {
+        const today = formatDate(new Date())
+        let curTodoArrToPrint = curTodoArr.filter((todo) => {
+            console.log('Todo:', todo.date)
+            if (todo.date == today) {
+                //update the array for today
+                // setVisibleTodoArr([
+            }
+        })
     }
 
-    const showThisWeek = () => {
+    const showThisWeek = (curTodoArr) => {
         setVisibleTodoArr([
             {
                 name: 'this weeeeek',
@@ -187,14 +198,16 @@ function App() {
                                 <li
                                     id="Home"
                                     className="projectItem"
-                                    onClick={showHome}
+                                    onClick={() => showHome(todoArr)}
                                 >
                                     Home
                                 </li>
                                 <li
                                     id="Today"
                                     className="projectItem"
-                                    onClick={showToday}
+                                    onClick={() => {
+                                        showToday(todoArr)
+                                    }}
                                 >
                                     Today
                                 </li>

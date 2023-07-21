@@ -8,6 +8,7 @@ specifiers:
   eslint-plugin-react: ^7.32.2
   eslint-plugin-react-hooks: ^4.6.0
   eslint-plugin-react-refresh: ^0.4.1
+  luxon: ^3.3.0
   prettier: ^3.0.0
   react: ^18.2.0
   react-datepicker: ^4.16.0
@@ -15,6 +16,7 @@ specifiers:
   vite: ^4.4.0
 
 dependencies:
+  luxon: 3.3.0
   react: 18.2.0
   react-datepicker: 4.16.0_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
@@ -1553,6 +1555,11 @@ packages:
     dependencies:
       yallist: 3.1.1
     dev: true
+
+  /luxon/3.3.0:
+    resolution: {integrity: sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /minimatch/3.1.2:
     resolution: {integrity: sha512-J7p63hRiAjw1NDEww1W7i37+ByIrOWO5XQQAzZ3VOcL0PNybwpfmV/N05zFAzwQ9USyEcX6t3UO+K5aqBQOIHw==}
