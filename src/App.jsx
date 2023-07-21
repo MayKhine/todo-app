@@ -3,6 +3,9 @@ import './App.css'
 import { TodoList } from './TodoList'
 import { useEffect } from 'react'
 import { ProjectList } from './ProjectList'
+import DatePicker from 'react-datepicker'
+import 'react-datepicker/dist/react-datepicker.css'
+
 function App() {
     // for all todos
     const [todoArr, setTodoArr] = useState(
@@ -19,19 +22,39 @@ function App() {
     const [showProjectInput, setShowProjectInput] = useState(false)
     const [projectText, setProjectText] = useState('')
     const [menuActive, setMenuActive] = useState(false)
+    const [todoDueDate, setTodoDueDate] = useState() //new Date()
+    const [todoPriority, setTodoPriority] = useState(0) // num
+    // const [showPriorityDropDown, setshowPriorityDropDown] = useState(false)
+
+    const priorityValueArr = ['Low', 'Medium', 'High']
 
     const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
 
-    const createTodo = (todo, date, priority, project) => {
+    const formatDate = (longDate) => {
+        return (
+            longDate.getMonth() +
+            1 +
+            '/' +
+            longDate.getDate() +
+            '/' +
+            longDate.getFullYear()
+        )
+    }
+    const createTodo = (todo, dueDate, priority, project) => {
         setTodoArr((todoArr) => [
             ...todoArr,
             {
                 name: todo,
-                date: date,
-                priority: priority,
+                date: dueDate ? formatDate(dueDate) : 'no date', // or it can be today date
+                priority: priority, //when null, it's low priority
                 project: project,
             },
         ])
+
+        setTodoText('')
+        setTodoDueDate()
+        setTodoPriority(0)
+        showHome()
     }
 
     const createProject = (projectName) => {
@@ -40,6 +63,7 @@ function App() {
 
     const showHome = () => {
         setVisibleTodoArr(todoArr)
+        console.log('SetVisibleTodoarry is updated', visibleTodoArr)
     }
 
     const showToday = () => {
@@ -101,43 +125,6 @@ function App() {
             <div style={{ fontSize: '20px', fontStyle: 'bold' }}>
                 TodoApp
                 <>
-                    <div id="todo">
-                        {!showTodoInput && (
-                            <button
-                                onClick={() => setShowTodoInput(true)}
-                                style={buttonStyle}
-                            >
-                                Add todo
-                            </button>
-                        )}
-
-                        {showTodoInput && (
-                            <>
-                                <input
-                                    id="todoInput"
-                                    value={todoText}
-                                    onChange={(e) =>
-                                        setTodoText(e.target.value)
-                                    }
-                                ></input>
-                                <button
-                                    style={buttonStyle}
-                                    onClick={() => {
-                                        setShowTodoInput(false)
-                                        createTodo(
-                                            todoText,
-                                            'date to fill',
-                                            'priority',
-                                            'proj category'
-                                        )
-                                        setTodoText('')
-                                    }}
-                                >
-                                    Add
-                                </button>
-                            </>
-                        )}
-                    </div>
                     <div id="project">
                         {!showProjectInput && (
                             <button
@@ -231,6 +218,78 @@ function App() {
                         flex: '1',
                     }}
                 >
+                    <div id="todo">
+                        {!showTodoInput && (
+                            <button
+                                onClick={() => setShowTodoInput(true)}
+                                style={buttonStyle}
+                            >
+                                Add todo
+                            </button>
+                        )}
+
+                        {showTodoInput && (
+                            <>
+                                <div>
+                                    <label>Task</label>
+                                    <input
+                                        id="todoInput"
+                                        value={todoText}
+                                        onChange={(e) =>
+                                            setTodoText(e.target.value)
+                                        }
+                                    ></input>
+                                </div>
+                                <div>
+                                    <label>Date</label>
+                                    <DatePicker
+                                        selected={todoDueDate}
+                                        onChange={(date) => {
+                                            setTodoDueDate(date)
+                                        }}
+                                        value={todoDueDate || 'mm/dd/yyyy'}
+                                    ></DatePicker>
+                                </div>
+                                <div>
+                                    <label>Priority</label>
+                                    <div>
+                                        <button
+                                            onClick={() => setTodoPriority(0)}
+                                        >
+                                            Low
+                                        </button>
+                                        <button
+                                            onClick={() => setTodoPriority(1)}
+                                        >
+                                            Medium
+                                        </button>
+                                        <button
+                                            onClick={() => setTodoPriority(2)}
+                                        >
+                                            High
+                                        </button>
+                                    </div>
+                                </div>
+                                <div>
+                                    <label>Project</label>
+                                </div>
+                                <button
+                                    style={buttonStyle}
+                                    onClick={() => {
+                                        setShowTodoInput(false)
+                                        createTodo(
+                                            todoText,
+                                            todoDueDate,
+                                            todoPriority,
+                                            'proj category'
+                                        )
+                                    }}
+                                >
+                                    Add
+                                </button>
+                            </>
+                        )}
+                    </div>
                     <TodoList listArr={visibleTodoArr} />
                 </div>
             </div>
