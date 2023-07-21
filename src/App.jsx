@@ -88,10 +88,14 @@ function App() {
         let curTodoArrToPrint = curTodoArr.filter((todo) => {
             console.log('Todo:', todo.date)
             if (todo.date == today) {
+                console.log('Today check: ', today, 'and ', todo.date)
+                return true
                 //update the array for today
                 // setVisibleTodoArr([
             }
         })
+
+        console.log('curTodoArrToPrint:', curTodoArrToPrint)
     }
 
     const showThisWeek = (curTodoArr) => {
