@@ -24,7 +24,7 @@ export const TodoList = (props) => {
                 <div style={style1}>{e.name}</div>
                 {/* <div style={todoStyle2}>{priorityValueArr[e.priority]}</div> */}
                 <div style={style2}> {formattedDate || 'no due date'} </div>
-                {/* <div style={todoStyle2}> {e.project}</div> */}
+                <div style={style2}> {e.project}</div>
             </div>
         )
     })

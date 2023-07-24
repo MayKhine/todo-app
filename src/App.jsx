@@ -13,7 +13,7 @@ function App() {
     )
     const [visibleTodoArr, setVisibleTodoArr] = useState(todoArr) // null
     const [projectArr, setProjectArr] = useState(
-        JSON.parse(localStorage.getItem('projectArr')) || ['']
+        JSON.parse(localStorage.getItem('projectArr')) || []
     )
 
     const [showTodoInput, setShowTodoInput] = useState(false)
@@ -42,9 +42,14 @@ function App() {
             <select
                 value={todoProject}
                 onChange={(event) => {
+                    console.log(
+                        'On change for proj drop down: ',
+                        event.target.value
+                    )
                     setTodoProject(event.target.value)
                 }}
             >
+                <option value="">None</option>
                 {pjList}
             </select>
         )
