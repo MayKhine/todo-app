@@ -54,11 +54,17 @@ function App() {
     }
 
     const createTodo = (todo, dueDate, priority, project) => {
+        // console.log(
+        //     'Due Date: ',
+        //     dueDate,
+        //     'Inserted due Date: ',
+        //     dueDate.toISOString()
+        // )
         const newTodo = [
             ...todoArr,
             {
                 name: todo,
-                date: dueDate ? formatDate(dueDate) : 'no date',
+                date: dueDate.toISOString(),
                 priority: priority, //when null, it's low priority
                 project: project,
             },
@@ -66,11 +72,11 @@ function App() {
 
         setTodoArr(newTodo)
 
+        // setVisibleTodoArr(newTodo)
+        showHome(newTodo)
         setTodoText('')
         setTodoDueDate()
         setTodoPriority(0)
-        // setVisibleTodoArr(newTodo)
-        showHome(newTodo)
     }
 
     const createProject = (projectName) => {
@@ -84,35 +90,35 @@ function App() {
     }
 
     const showToday = (curTodoArr) => {
-        const today = formatDate(new Date())
-        let curTodoArrToPrint = curTodoArr.filter((todo) => {
-            console.log('Todo:', todo.date)
-            if (todo.date == today) {
-                console.log('Today check: ', today, 'and ', todo.date)
+        const today = DateTime.local().toISO()
+        console.log('Today: ', today)
+        const curTodoArrToPrint = curTodoArr.filter((todo) => {
+            console.log('todo.date: ', todo.date)
+            if ((todo.date = today)) {
+                // console.log('Today check: ', today, 'and ', todo.date)
                 return true
-                //update the array for today
-                // setVisibleTodoArr([
             }
         })
-
-        console.log('curTodoArrToPrint:', curTodoArrToPrint)
+        // console.log('curTodoArrToPrint:', curTodoArrToPrint)
+        setVisibleTodoArr(curTodoArrToPrint)
     }
 
     const showThisWeek = (curTodoArr) => {
-        setVisibleTodoArr([
-            {
-                name: 'this weeeeek',
-                date: 'date to fill',
-                priority: 'priority',
-                project: 'proj category',
-            },
-            {
-                name: 'this weeeekkkk',
-                date: 'date to fill',
-                priority: 'priority',
-                project: 'proj category',
-            },
-        ])
+        // current week number
+        const thisWeekNum = DateTime.local().weekNumber
+        // console.log('this week:', thisWeekNum)
+        const testDate = DateTime.fromISO(curTodoArr[0].date)
+        // console.log('testDate: ', testDate)
+        // console.log('Luxon: ', testDate.weekNumber)
+        const curTodoArrToPrint = curTodoArr.filter((todo) => {
+            if (DateTime.fromISO(todo.date).weekNumber == thisWeekNum) {
+                console.log(
+                    'todo week num: ',
+                    DateTime.fromISO(todo.date).weekNumber
+                )
+                return true
+            }
+        })
     }
 
     const showThisProject = (project) => {
@@ -218,7 +224,9 @@ function App() {
                                 <li
                                     id="ThisWeek"
                                     className="projectItem"
-                                    onClick={showThisWeek}
+                                    onClick={() => {
+                                        showThisWeek(todoArr)
+                                    }}
                                 >
                                     This Week
                                 </li>
