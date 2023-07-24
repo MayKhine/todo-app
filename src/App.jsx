@@ -27,33 +27,22 @@ function App() {
     const [todoDueDate, setTodoDueDate] = useState() //new Date()
     const [todoPriority, setTodoPriority] = useState(0) // num
     const [todoProject, setTodoProject] = useState('')
-    const noProject = ''
     const priorityValueArr = ['Low', 'Medium', 'High']
     const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
 
-    let selectedProject = ''
     const ProjectDropDown = (props) => {
         const pjList = props.projectArr.map((project, index) => {
             return (
-                <option
-                    key={index}
-                    value={project || null}
-                    onSelect={(e) => console.log(e)}
-                >
+                <option key={index} value={project}>
                     {project}
                 </option>
             )
         })
-        // console.log('Which project: ', todoProject)
         return (
             <select
-                // onClick={(e) =>
-                //     console.log(e.target.value, 'pciked pj: ', pickedPj)
-                // }
+                value={todoProject}
                 onChange={(event) => {
-                    // console.log('Selected: ', event.target.value)
-                    selectedProject = event.target.value
-                    // setTodoProject(selectedProject)
+                    setTodoProject(event.target.value)
                 }}
             >
                 {pjList}
@@ -61,7 +50,7 @@ function App() {
         )
     }
     const createTodo = (todo, dueDate, priority, project) => {
-        console.log('newTODO: ', todo, dueDate, priority, project)
+        console.log('newTODO project: ', project)
 
         const newTodo = [
             ...todoArr,
@@ -80,6 +69,7 @@ function App() {
         setTodoText('')
         setTodoDueDate()
         setTodoPriority(0)
+        setTodoProject('')
     }
 
     const createProject = (projectName) => {
@@ -309,7 +299,7 @@ function App() {
                                             todoText,
                                             todoDueDate,
                                             todoPriority,
-                                            selectedProject
+                                            todoProject
                                         )
                                     }}
                                 >
