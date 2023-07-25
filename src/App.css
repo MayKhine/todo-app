@@ -1,27 +1,41 @@
 #root {
-    margin: 0 auto;
-    text-align: center;
-    background-color: lightcyan;
+  margin: 0 auto;
+  text-align: center;
+  background-color: lightcyan;
 }
 
 .toggleButton {
-    position: absolute;
-    top: 0.75rem;
-    right: 1rem;
-    display: none;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 30px;
-    height: 21px;
+  position: absolute;
+  top: 0.75rem;
+  right: 1rem;
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 30px;
+  height: 21px;
 }
 
 .toggleButton .bar {
-    height: 4px;
-    width: 100%;
-    background-color: gray;
-    border-radius: 20px;
+  height: 4px;
+  width: 100%;
+  background-color: gray;
+  border-radius: 20px;
 }
 
+.priorityButton {
+  color: black;
+  background-color: lightgray;
+  border-radius: 8px;
+  border: transparent;
+  padding: 0.4em 0.4em;
+  font-size: 0.8em;
+  cursor: pointer;
+  margin: 5px 5px 5px 5px;
+}
+
+.priorityButton:focus {
+  background-color: darkgrey;
+}
 /* #leftSec {
     background-color: lightblue;
 } */
@@ -31,56 +45,56 @@
 } */
 
 .projectItem {
-    background-color: pink;
-    width: 300px;
-    padding: 5px 5px 5px 5px;
+  background-color: pink;
+  width: 300px;
+  padding: 5px 5px 5px 5px;
 }
 
 .projectItem:hover {
-    background-color: palevioletred;
+  background-color: palevioletred;
 }
 
 @media (max-width: 650px) {
-    .toggleButton {
-        display: flex;
-    }
+  .toggleButton {
+    display: flex;
+  }
 
-    .projectList {
-        display: none;
-        width: 100%;
-        align-items: center;
-        justify-content: center;
-    }
+  .projectList {
+    display: none;
+    width: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 
-    .projectList ul {
-        background-color: gray;
-        display: flex;
-        width: 100%;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-    }
-    .projectList li {
-        text-align: center;
-        width: 100%;
-    }
-    .projectItem {
-        width: 100%;
-    }
-    .projectList.active {
-        display: flex;
-    }
+  .projectList ul {
+    background-color: gray;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .projectList li {
+    text-align: center;
+    width: 100%;
+  }
+  .projectItem {
+    width: 100%;
+  }
+  .projectList.active {
+    display: flex;
+  }
 
-    #leftSec {
-        width: 100%;
-    }
+  #leftSec {
+    width: 100%;
+  }
 }
 
 #leftSec ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 #leftSec li {
-    list-style: none;
+  list-style: none;
 }
