@@ -20,12 +20,13 @@ function App() {
     const [showProjectInput, setShowProjectInput] = useState(false)
 
     const [projectText, setProjectText] = useState('')
+    const [validation, setValidation] = useState(true)
 
     //creating todo task
     const [todoText, setTodoText] = useState('')
     const [menuActive, setMenuActive] = useState(false)
-    const [todoDueDate, setTodoDueDate] = useState() //new Date()
-    const [todoPriority, setTodoPriority] = useState(0) // num
+    const [todoDueDate, setTodoDueDate] = useState()
+    const [todoPriority, setTodoPriority] = useState(0) // default priority is low
     const [todoProject, setTodoProject] = useState('')
     const priorityValueArr = ['Low', 'Medium', 'High']
     const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
@@ -54,6 +55,7 @@ function App() {
             </select>
         )
     }
+
     const createTodo = (todo, dueDate, priority, project) => {
         console.log('newTODO project: ', project)
 
@@ -79,6 +81,8 @@ function App() {
 
     const createProject = (projectName) => {
         setProjectArr((projectArr) => [...projectArr, projectName])
+        setProjectText('')
+        setShowProjectInput(false)
     }
 
     const showHome = (curTodoArr) => {
@@ -120,6 +124,16 @@ function App() {
         //show this project code
     }
 
+    const validateInput = (text) => {
+        if (text.trim()) {
+            setValidation(true)
+            return true
+        } else {
+            setValidation(false)
+            return false
+        }
+    }
+
     useEffect(() => {
         localStorage.setItem('todoArr', JSON.stringify(todoArr))
     }, [todoArr])
@@ -155,23 +169,42 @@ function App() {
 
                         {showProjectInput && (
                             <>
-                                <input
-                                    id="projectText"
-                                    value={projectText}
-                                    onChange={(e) => {
-                                        setProjectText(e.target.value)
-                                    }}
-                                ></input>
-                                <button
-                                    style={buttonStyle}
-                                    onClick={() => {
-                                        setShowProjectInput(false)
-                                        createProject(projectText)
-                                        setProjectText('')
-                                    }}
-                                >
-                                    Add Project
-                                </button>
+                                <div>
+                                    <input
+                                        id="projectText"
+                                        value={projectText}
+                                        onChange={(e) => {
+                                            setValidation(true)
+                                            setProjectText(e.target.value)
+                                        }}
+                                    ></input>
+                                    {!validation && (
+                                        <div style={errorStyle}>Error</div>
+                                    )}
+                                </div>
+                                <div>
+                                    <button
+                                        style={buttonStyle}
+                                        onClick={() => {
+                                            setProjectText('')
+                                            setValidation(true)
+                                            setShowProjectInput(false)
+                                        }}
+                                    >
+                                        X
+                                    </button>
+                                    <button
+                                        style={buttonStyle}
+                                        onClick={() => {
+                                            // setShowProjectInput(false)
+                                            validateInput(projectText) &&
+                                                createProject(projectText)
+                                            // setShowProjectInput(false)
+                                        }}
+                                    >
+                                        Add
+                                    </button>
+                                </div>
                             </>
                         )}
                     </div>
@@ -254,6 +287,8 @@ function App() {
                                     <label>Task</label>
                                     <input
                                         id="todoInput"
+                                        type="text"
+                                        required
                                         value={todoText}
                                         onChange={(e) =>
                                             setTodoText(e.target.value)
@@ -336,4 +371,8 @@ const buttonStyle = {
 
 const leftSecStyle = {
     backgroundColor: 'gray',
+}
+
+const errorStyle = {
+    color: 'red',
 }
