@@ -42,6 +42,7 @@ function App() {
     })
     return (
       <select
+        style={inputDropDownStyle}
         value={todoProject}
         onChange={(event) => {
           console.log('On change for proj drop down: ', event.target.value)
@@ -318,8 +319,10 @@ function App() {
                   <div
                     style={{
                       display: 'flex',
+                      flexGrow: '0',
                       justifyContent: 'center',
                       gap: '30%',
+                      flexWrap: 'wrap',
                     }}
                   >
                     <div style={todoInputDivStyle}>
@@ -362,7 +365,16 @@ function App() {
                   </div>
                   <div style={todoInputDivStyle}>
                     <label style={inputLabelStyle}>Project</label>
-                    <ProjectDropDown projectArr={projectArr}></ProjectDropDown>
+                    <div
+                      style={{
+                        // width: 'calc(100%-10px)',
+                        paddingRight: '8px',
+                      }}
+                    >
+                      <ProjectDropDown
+                        projectArr={projectArr}
+                      ></ProjectDropDown>
+                    </div>
                   </div>
                   <div>
                     <button
@@ -394,6 +406,7 @@ function App() {
                 </>
               )}
             </div>
+
             <TodoList listArr={visibleTodoArr} />
           </div>
         </div>
@@ -435,13 +448,13 @@ const containerStyle = {
 const addTodobuttonStyle = {
   color: 'black',
   backgroundColor: melon,
-  borderRadius: '8px',
+  borderRadius: '4px',
   border: '1px solid transparent',
   fontSize: '1em',
   cursor: 'pointer',
   padding: '8px 8px 8px 8px',
   textDecoration: 'underline',
-  width: 'calc(100% - 16px)',
+  width: 'calc(100% - 12px)',
 }
 
 const buttonStyle = {
@@ -470,13 +483,25 @@ const todoBoxStyle = {
 const todoInputDivStyle = {
   display: 'flex',
   flexDirection: 'column',
-  paddingTop: '16px',
+  paddingTop: '8px',
   paddingLeft: '8px',
 }
 const projectBoxStyle = {
   margin: '0px 5px 0px 15px',
   display: 'flex',
   flexDirection: 'column',
+}
+
+const inputDropDownStyle = {
+  width: '100%',
+  backgroundColor: desertSand,
+  // margin: '0px 10px 0px 0px',
+  borderColor: mountbattenPink,
+  borderStyle: 'solid',
+  borderWidth: '1px',
+  borderRadius: '4px',
+  padding: '6px',
+  marginTop: '2px',
 }
 
 const inputLabelStyle = {
@@ -487,7 +512,7 @@ const inputLabelStyle = {
 
 const inputTextStyle = {
   backgroundColor: desertSand,
-  margin: '0px 10px 0px 0px',
+  margin: '0px 8px 0px 0px',
   borderColor: mountbattenPink,
   borderStyle: 'solid',
   borderWidth: '1px',
