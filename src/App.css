@@ -1,7 +1,7 @@
 #root {
   margin: 0 auto;
   text-align: center;
-  background-color: lightcyan;
+  background-color: #c8ab9eff;
 }
 
 .toggleButton {
@@ -18,13 +18,13 @@
 .toggleButton .bar {
   height: 4px;
   width: 100%;
-  background-color: gray;
+  background-color: black;
   border-radius: 20px;
 }
 
 .priorityButton {
-  color: black;
-  background-color: lightgray;
+  color: white;
+  background-color: #526c79ff;
   border-radius: 8px;
   border: transparent;
   padding: 0.4em 0.4em;
@@ -34,24 +34,23 @@
 }
 
 .priorityButton:focus {
-  background-color: darkgrey;
+  background-color: #285b75ff;
 }
-/* #leftSec {
-    background-color: lightblue;
-} */
-
-/* .projectItem {
-    width: 100%;
-} */
 
 .projectItem {
-  background-color: pink;
-  width: 300px;
-  padding: 5px 5px 5px 5px;
+  background-color: #f4b1a8ff;
+  width: 250px;
+  padding: 5px 5px 5px 15px;
+  text-align: left;
 }
 
 .projectItem:hover {
-  background-color: palevioletred;
+  cursor: pointer;
+  background-color: #e57e81ff;
+}
+
+#leftSec {
+  background-color: #f4b1a8ff;
 }
 
 @media (max-width: 650px) {
@@ -67,26 +66,33 @@
   }
 
   .projectList ul {
-    background-color: gray;
+    /* background-color: gray; */
     display: flex;
     width: 100%;
     flex-direction: column;
     align-items: center;
     justify-content: center;
   }
+
   .projectList li {
     text-align: center;
     width: 100%;
+    /* padding: 5px 5px 5px 15px;
+    text-align: left; */
   }
+
   .projectItem {
     width: 100%;
   }
+
   .projectList.active {
     display: flex;
   }
 
   #leftSec {
     width: 100%;
+    height: max-content;
+    background-color: #f4b1a8ff;
   }
 }
 

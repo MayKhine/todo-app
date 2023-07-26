@@ -13,6 +13,7 @@ specifiers:
   react: ^18.2.0
   react-datepicker: ^4.16.0
   react-dom: ^18.2.0
+  react-icons: ^4.10.1
   vite: ^4.4.0
 
 dependencies:
@@ -20,6 +21,7 @@ dependencies:
   react: 18.2.0
   react-datepicker: 4.16.0_biqbaboplfbrettd7655fr4n2y
   react-dom: 18.2.0_react@18.2.0
+  react-icons: 4.10.1_react@18.2.0
 
 devDependencies:
   '@types/react': 18.2.15
@@ -1768,6 +1770,14 @@ packages:
 
   /react-fast-compare/3.2.2:
     resolution: {integrity: sha512-nsO+KSNgo1SbJqJEYRE9ERzo7YtYbou/OqjSQKxV7jcKox7+usiUVZOAC+XnDOABXggQTno0Y1CpVnuWEc1boQ==}
+    dev: false
+
+  /react-icons/4.10.1_react@18.2.0:
+    resolution: {integrity: sha512-/ngzDP/77tlCfqthiiGNZeYFACw85fUjZtLbedmJ5DTlNDIwETxhwBzdOJ21zj4iJdvc0J3y7yOsX3PpxAJzrw==}
+    peerDependencies:
+      react: '*'
+    dependencies:
+      react: 18.2.0
     dev: false
 
   /react-is/16.13.1:

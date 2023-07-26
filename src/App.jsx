@@ -6,11 +6,12 @@ import { ProjectList } from './ProjectList'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DateTime } from 'luxon'
-
+import { BiPlusCircle } from 'react-icons/bi'
 function App() {
   const [todoArr, setTodoArr] = useState(
     JSON.parse(localStorage.getItem('todoArr')) || []
   )
+
   const [visibleTodoArr, setVisibleTodoArr] = useState(todoArr) // null
   const [projectArr, setProjectArr] = useState(
     JSON.parse(localStorage.getItem('projectArr')) || []
@@ -148,25 +149,11 @@ function App() {
   }, [projectArr])
 
   return (
-    <div
-      id="container"
-      style={{
-        fontFamily: 'Verdana',
-        fontSize: '15px',
-        // width: '100vw',
-        height: '100vh',
-      }}
-    >
-      <div style={{ fontSize: '20px', fontStyle: 'bold' }}>TodoApp</div>
+    <div style={appStyle}>
+      <div style={headerStyle}>TodoApp</div>
 
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'row',
-          flexWrap: 'wrap',
-        }}
-      >
-        <div id="leftSec" style={leftSecStyle}>
+      <div id="container" style={containerStyle}>
+        <div id="leftSec">
           <div
             className="toggleButton"
             onClick={() => {
@@ -208,6 +195,78 @@ function App() {
                   This Week
                 </li>
 
+                <div>
+                  <div style={projectHeaderStyle}>Projects</div>
+                  <div
+                    id="project"
+                    style={{
+                      // backgroundColor: 'green',
+                      padding: '10px',
+                    }}
+                  >
+                    {!showProjectInput && (
+                      <li
+                        style={addButtonStyle}
+                        onClick={() => {
+                          setShowTodoInput(false)
+                          setShowProjectInput(true)
+                        }}
+                      >
+                        + Add Project
+                      </li>
+                    )}
+
+                    {showProjectInput && (
+                      <>
+                        <div>
+                          <input
+                            id="projectText"
+                            value={projectText}
+                            onChange={(e) => {
+                              setValidation(true)
+                              setProjectText(e.target.value)
+                            }}
+                          ></input>
+
+                          <div
+                            style={{
+                              height: '15px',
+                            }}
+                          >
+                            {!validation && (
+                              <div style={errorStyle}>
+                                Error: This field cannot be empty.
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        <div>
+                          <button
+                            style={buttonStyle}
+                            onClick={() => {
+                              setProjectText('')
+                              setValidation(true)
+                              setShowProjectInput(false)
+                            }}
+                          >
+                            X
+                          </button>
+                          <button
+                            style={buttonStyle}
+                            onClick={() => {
+                              // setShowProjectInput(false)
+                              validateInput(projectText) &&
+                                createProject(projectText)
+                              // setShowProjectInput(false)
+                            }}
+                          >
+                            Add
+                          </button>
+                        </div>
+                      </>
+                    )}
+                  </div>
+                </div>
                 <ProjectList
                   projArr={projectArr}
                   showThisProject={showThisProject}
@@ -222,82 +281,17 @@ function App() {
         <div
           id="rightSec"
           style={{
-            backgroundColor: 'lightblue',
+            // backgroundColor: 'lightblue',
             flex: '1',
           }}
         >
-          <div
-            id="project"
-            style={{
-              // backgroundColor: 'green',
-              padding: '10px',
-            }}
-          >
-            {!showProjectInput && (
-              <button
-                style={buttonStyle}
-                onClick={() => {
-                  setShowProjectInput(true)
-                }}
-              >
-                Add Project
-              </button>
-            )}
-
-            {showProjectInput && (
-              <>
-                <div>
-                  <input
-                    id="projectText"
-                    value={projectText}
-                    onChange={(e) => {
-                      setValidation(true)
-                      setProjectText(e.target.value)
-                    }}
-                  ></input>
-
-                  <div
-                    style={{
-                      height: '15px',
-                    }}
-                  >
-                    {!validation && (
-                      <div style={errorStyle}>
-                        Error: This field cannot be empty.
-                      </div>
-                    )}
-                  </div>
-                </div>
-                <div>
-                  <button
-                    style={buttonStyle}
-                    onClick={() => {
-                      setProjectText('')
-                      setValidation(true)
-                      setShowProjectInput(false)
-                    }}
-                  >
-                    X
-                  </button>
-                  <button
-                    style={buttonStyle}
-                    onClick={() => {
-                      // setShowProjectInput(false)
-                      validateInput(projectText) && createProject(projectText)
-                      // setShowProjectInput(false)
-                    }}
-                  >
-                    Add
-                  </button>
-                </div>
-              </>
-            )}
-          </div>
-
           <div id="todo">
             {!showTodoInput && (
               <button
-                onClick={() => setShowTodoInput(true)}
+                onClick={() => {
+                  setShowProjectInput(false)
+                  setShowTodoInput(true)
+                }}
                 style={buttonStyle}
               >
                 Add todo
@@ -401,7 +395,41 @@ function App() {
 
 export default App
 
-// button style
+const desertSand = '#E5B897ff'
+const melon = '#F4B1A8ff'
+const lightCoral = '#E57E81ff'
+const roseTaupe = '#976870ff'
+const paynesGray = '#526C79ff'
+const paynesGray2 = '#285B75ff'
+const caputMortuum = '#432328ff'
+const mountbattenPink = '#94797Eff'
+
+const appStyle = {
+  fontFamily: 'Bitter',
+  fontSize: '15px',
+  height: '100vh',
+}
+const headerStyle = {
+  height: '12%',
+  fontSize: '2em',
+  textAlign: 'center',
+  backgroundColor: roseTaupe,
+}
+
+const containerStyle = {
+  display: 'flex',
+  flexDirection: 'row',
+  flexWrap: 'wrap',
+}
+const addButtonStyle = {
+  backgroundColor: lightCoral,
+  cursor: 'pointer',
+  padding: '5px 0px 5px 0px',
+  margin: '0px 5px 0px 5px',
+  width: '100%',
+  textAlign: 'left',
+}
+
 const buttonStyle = {
   color: 'black',
   backgroundColor: 'lightgray',
@@ -411,10 +439,21 @@ const buttonStyle = {
   fontSize: '1em',
   cursor: 'pointer',
   margin: '5px 5px 5px 5px',
+  // width: '100%',
 }
 
 const leftSecStyle = {
-  backgroundColor: 'gray',
+  backgroundColor: melon,
+  //   height: '100vh',
+}
+
+const projectHeaderStyle = {
+  //   backgroundColor: melon,
+  textAlign: 'left',
+  margin: '0',
+  padding: '10px 0px 4px 0px',
+  borderStyle: 'none none solid none',
+  margin: '0px 15px 0px 15px',
 }
 
 const errorStyle = {
