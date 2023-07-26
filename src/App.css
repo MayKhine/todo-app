@@ -46,6 +46,41 @@
   padding-top: 20px;
 }
 
+/* .dateStyle {
+  .react-datepicker-wrapper,
+  .react-datepicker__input-container,
+  .react-datepicker__input-container input {
+    display: block;
+    width: 250px;
+    margin-right: 13px;
+    margin-left: 3px;
+    background-color: aqua;
+  }
+} */
+
+.dateStyle {
+  /* background-color: #e5b897ff; */
+  /* .react-datepicker-wrapper {
+    background-color: blue;
+  }
+  .react-datepicker__input-container {
+    background-color: blue;
+  } */
+  .react-datepicker__input-container input {
+    display: block;
+    width: 100%;
+    margin-right: 13px;
+    margin-left: 3px;
+    background-color: #e5b897ff;
+    border-color: #94797eff;
+    margin: 0px 10px 0px 0px;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 4px;
+    padding: 6px;
+    margin-top: 2px;
+  }
+}
 .projectItem {
   background-color: #f4b1a8ff;
   width: 250px;

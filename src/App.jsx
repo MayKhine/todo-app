@@ -281,108 +281,121 @@ function App() {
             flex: '1',
           }}
         >
-          <div id="todo">
-            {!showTodoInput && (
-              <button
-                onClick={() => {
-                  setShowProjectInput(false)
-                  setShowTodoInput(true)
-                }}
-                style={buttonStyle}
-              >
-                Add todo
-              </button>
-            )}
+          <div className="todoContainer" style={todoContainerStyle}>
+            <div id="todo" style={todoBoxStyle}>
+              {!showTodoInput && (
+                <button
+                  style={addTodobuttonStyle}
+                  onClick={() => {
+                    setShowProjectInput(false)
+                    setShowTodoInput(true)
+                  }}
+                >
+                  Add todo
+                </button>
+              )}
+              {showTodoInput && (
+                <>
+                  <div style={todoInputDivStyle}>
+                    <label style={inputLabelStyle}>Todo Task</label>
+                    <input
+                      id="todoInput"
+                      type="text"
+                      style={inputTextStyle}
+                      value={todoText}
+                      onChange={(e) => {
+                        // console.log('e', e.target.value)
+                        // validateInput(e.target.value) &&
+                        setTodoText(e.target.value)
+                      }}
+                    ></input>
+                    {!validation && (
+                      <div style={errorStyle}>
+                        Error: This field cannot be empty.
+                      </div>
+                    )}
+                  </div>
+                  <div
+                    style={{
+                      display: 'flex',
+                      justifyContent: 'center',
+                      gap: '30%',
+                    }}
+                  >
+                    <div style={todoInputDivStyle}>
+                      <label style={inputLabelStyle}>Date</label>
 
-            {showTodoInput && (
-              <>
-                <div>
-                  <label>Task</label>
-                  <input
-                    id="todoInput"
-                    type="text"
-                    required
-                    value={todoText}
-                    onChange={(e) => {
-                      // console.log('e', e.target.value)
-                      // validateInput(e.target.value) &&
-                      setTodoText(e.target.value)
-                    }}
-                  ></input>
-                  {!validation && (
-                    <div style={errorStyle}>
-                      Error: This field cannot be empty.
+                      <DatePicker
+                        selected={todoDueDate}
+                        onChange={(date) => {
+                          setTodoDueDate(date)
+                        }}
+                        value={todoDueDate || 'mm/dd/yyyy'}
+                        // showIcon
+                        // isClearable
+                        wrapperClassName="dateStyle"
+                      ></DatePicker>
                     </div>
-                  )}
-                </div>
-                <div>
-                  <label>Date</label>
-                  <DatePicker
-                    selected={todoDueDate}
-                    onChange={(date) => {
-                      setTodoDueDate(date)
-                    }}
-                    value={todoDueDate || 'mm/dd/yyyy'}
-                  ></DatePicker>
-                </div>
-                <div>
-                  <label>Priority</label>
+                    <div style={todoInputDivStyle}>
+                      <label style={inputLabelStyle}>Priority</label>
+                      <div>
+                        <button
+                          className="priorityButton"
+                          onClick={() => setTodoPriority(0)}
+                        >
+                          Low
+                        </button>
+                        <button
+                          className="priorityButton"
+                          onClick={() => setTodoPriority(1)}
+                        >
+                          Medium
+                        </button>
+                        <button
+                          className="priorityButton"
+                          onClick={() => setTodoPriority(2)}
+                        >
+                          High
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                  <div style={todoInputDivStyle}>
+                    <label style={inputLabelStyle}>Project</label>
+                    <ProjectDropDown projectArr={projectArr}></ProjectDropDown>
+                  </div>
                   <div>
                     <button
-                      className="priorityButton"
-                      onClick={() => setTodoPriority(0)}
+                      style={buttonStyle}
+                      onClick={() => {
+                        setValidation(true)
+                        setShowTodoInput(false)
+                      }}
                     >
-                      Low
+                      X
                     </button>
                     <button
-                      className="priorityButton"
-                      onClick={() => setTodoPriority(1)}
+                      style={buttonStyle}
+                      onClick={() => {
+                        // setShowTodoInput(false)
+
+                        validateInput(todoText) &&
+                          createTodo(
+                            todoText,
+                            todoDueDate,
+                            todoPriority,
+                            todoProject
+                          )
+                      }}
                     >
-                      Medium
-                    </button>
-                    <button
-                      className="priorityButton"
-                      onClick={() => setTodoPriority(2)}
-                    >
-                      High
+                      Add
                     </button>
                   </div>
-                </div>
-                <div>
-                  <label>Project</label>
-                  <ProjectDropDown projectArr={projectArr}></ProjectDropDown>
-                </div>
-                <div>
-                  <button
-                    style={buttonStyle}
-                    onClick={() => {
-                      setValidation(true)
-                      setShowTodoInput(false)
-                    }}
-                  >
-                    X
-                  </button>
-                  <button
-                    style={buttonStyle}
-                    onClick={() => {
-                      // setShowTodoInput(false)
-
-                      validateInput(todoText) &&
-                        createTodo(
-                          todoText,
-                          todoDueDate,
-                          todoPriority,
-                          todoProject
-                        )
-                    }}
-                  >
-                    Add
-                  </button>
-                </div>
-              </>
-            )}
+                </>
+              )}
+            </div>
+            <TodoList listArr={visibleTodoArr} />
           </div>
-          <TodoList listArr={visibleTodoArr} />
         </div>
       </div>
     </div>
@@ -405,6 +418,7 @@ const appStyle = {
   fontSize: '15px',
   height: '100vh',
 }
+
 const headerStyle = {
   height: '12%',
   fontSize: '2em',
@@ -417,13 +431,17 @@ const containerStyle = {
   flexDirection: 'row',
   flexWrap: 'wrap',
 }
-const addButtonStyle = {
-  // backgroundColor: lightCoral,
+
+const addTodobuttonStyle = {
+  color: 'black',
+  backgroundColor: melon,
+  borderRadius: '8px',
+  border: '1px solid transparent',
+  fontSize: '1em',
   cursor: 'pointer',
-  padding: '5px 0px 5px 0px',
-  margin: '0px 5px 0px 5px',
-  width: '100%',
-  textAlign: 'left',
+  padding: '8px 8px 8px 8px',
+  textDecoration: 'underline',
+  width: 'calc(100% - 16px)',
 }
 
 const buttonStyle = {
@@ -435,33 +453,38 @@ const buttonStyle = {
   fontSize: '1em',
   cursor: 'pointer',
   margin: '5px 5px 5px 5px',
-  // width: '50%',
+  alignSelf: 'flex-start',
 }
 
-const leftSecStyle = {
-  backgroundColor: melon,
-  //   height: '100vh',
+const todoContainerStyle = {
+  width: '100%',
+  display: 'flex',
+  flexDirection: 'column',
 }
 
-const projectHeaderStyle = {
-  //   backgroundColor: melon,
-  textAlign: 'left',
-  margin: '0',
-  padding: '10px 0px 4px 0px',
-  borderStyle: 'none none solid none',
-  margin: '0px 15px 0px 15px',
+const todoBoxStyle = {
+  width: '100%',
+  backgroundColor: 'lightgray',
 }
 
+const todoInputDivStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  paddingTop: '16px',
+  paddingLeft: '8px',
+}
 const projectBoxStyle = {
   margin: '0px 5px 0px 15px',
   display: 'flex',
   flexDirection: 'column',
 }
+
 const inputLabelStyle = {
   textAlign: 'left',
   margin: '0',
   fontSize: '.8em',
 }
+
 const inputTextStyle = {
   backgroundColor: desertSand,
   margin: '0px 10px 0px 0px',
