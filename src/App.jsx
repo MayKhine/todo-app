@@ -120,8 +120,13 @@ function App() {
     setVisibleTodoArr(curTodoArrToPrint)
   }
 
-  const showThisProject = (project) => {
-    //show this project code
+  const showThisProject = (projectName) => {
+    const curTodoArrToPrint = todoArr.filter((todo) => {
+      if (todo.project == projectName) {
+        return true
+      }
+    })
+    setVisibleTodoArr(curTodoArrToPrint)
   }
 
   const validateInput = (text) => {
@@ -203,7 +208,13 @@ function App() {
                   This Week
                 </li>
 
-                <ProjectList projArr={projectArr}></ProjectList>
+                <ProjectList
+                  projArr={projectArr}
+                  showThisProject={showThisProject}
+                  onClick={(e) => {
+                    console.log('Pj list e: ', e)
+                  }}
+                ></ProjectList>
               </ul>
             </div>
           }
