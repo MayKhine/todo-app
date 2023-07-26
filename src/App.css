@@ -37,6 +37,15 @@
   background-color: #285b75ff;
 }
 
+.projectHeader {
+  /* background-color: lightblue; */
+  width: 250px;
+  padding: 5px 5px 5px 15px;
+  text-align: left;
+  text-decoration: underline;
+  padding-top: 20px;
+}
+
 .projectItem {
   background-color: #f4b1a8ff;
   width: 250px;
@@ -83,6 +92,16 @@
 
   .projectItem {
     width: 100%;
+    /* background-color: beige; */
+  }
+  .project {
+    width: 100%;
+  }
+  .projectHeader {
+    /* background-color: lightblue; */
+    width: 100%;
+    text-align: center;
+    padding-top: 20px;
   }
 
   .projectList.active {

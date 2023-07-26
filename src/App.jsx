@@ -195,78 +195,74 @@ function App() {
                   This Week
                 </li>
 
-                <div>
-                  <div style={projectHeaderStyle}>Projects</div>
-                  <div
-                    id="project"
-                    style={{
-                      // backgroundColor: 'green',
-                      padding: '10px',
-                    }}
-                  >
-                    {!showProjectInput && (
-                      <li
-                        style={addButtonStyle}
-                        onClick={() => {
-                          setShowTodoInput(false)
-                          setShowProjectInput(true)
-                        }}
-                      >
-                        + Add Project
-                      </li>
-                    )}
-
-                    {showProjectInput && (
-                      <>
-                        <div>
-                          <input
-                            id="projectText"
-                            value={projectText}
-                            onChange={(e) => {
-                              setValidation(true)
-                              setProjectText(e.target.value)
-                            }}
-                          ></input>
-
-                          <div
-                            style={{
-                              height: '15px',
-                            }}
-                          >
-                            {!validation && (
-                              <div style={errorStyle}>
-                                Error: This field cannot be empty.
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                        <div>
-                          <button
-                            style={buttonStyle}
-                            onClick={() => {
-                              setProjectText('')
-                              setValidation(true)
-                              setShowProjectInput(false)
-                            }}
-                          >
-                            X
-                          </button>
-                          <button
-                            style={buttonStyle}
-                            onClick={() => {
-                              // setShowProjectInput(false)
-                              validateInput(projectText) &&
-                                createProject(projectText)
-                              // setShowProjectInput(false)
-                            }}
-                          >
-                            Add
-                          </button>
-                        </div>
-                      </>
-                    )}
-                  </div>
+                <div
+                  className="projectHeader"
+                  // style={projectHeaderStyle}
+                >
+                  Projects
                 </div>
+                <div className="project">
+                  {!showProjectInput && (
+                    <li
+                      className="projectItem"
+                      onClick={() => {
+                        setShowTodoInput(false)
+                        setShowProjectInput(true)
+                      }}
+                    >
+                      + Add Project
+                    </li>
+                  )}
+
+                  {showProjectInput && (
+                    <>
+                      <div style={projectBoxStyle}>
+                        <p style={inputLabelStyle}>Project Name</p>
+                        <input
+                          id="projectText"
+                          style={inputTextStyle}
+                          value={projectText}
+                          onChange={(e) => {
+                            setValidation(true)
+                            setProjectText(e.target.value)
+                          }}
+                        ></input>
+
+                        <div>
+                          {!validation && (
+                            <div style={errorStyle}>
+                              Error: This field cannot be empty.
+                            </div>
+                          )}
+                        </div>
+                      </div>
+                      <div>
+                        <button
+                          style={buttonStyle}
+                          onClick={() => {
+                            setProjectText('')
+                            setValidation(true)
+                            setShowProjectInput(false)
+                          }}
+                        >
+                          X
+                        </button>
+                        <button
+                          style={buttonStyle}
+                          onClick={() => {
+                            // setShowProjectInput(false)
+                            validateInput(projectText) &&
+                              createProject(projectText)
+                            // setShowProjectInput(false)
+                          }}
+                        >
+                          Add
+                        </button>
+                      </div>
+                    </>
+                  )}
+                </div>
+
                 <ProjectList
                   projArr={projectArr}
                   showThisProject={showThisProject}
@@ -422,7 +418,7 @@ const containerStyle = {
   flexWrap: 'wrap',
 }
 const addButtonStyle = {
-  backgroundColor: lightCoral,
+  // backgroundColor: lightCoral,
   cursor: 'pointer',
   padding: '5px 0px 5px 0px',
   margin: '0px 5px 0px 5px',
@@ -431,15 +427,15 @@ const addButtonStyle = {
 }
 
 const buttonStyle = {
-  color: 'black',
-  backgroundColor: 'lightgray',
-  borderRadius: '8px',
+  color: 'white',
+  backgroundColor: paynesGray2,
+  borderRadius: '4px',
   border: '1px solid transparent',
-  padding: '.5em .5em',
+  padding: '.4em .4em',
   fontSize: '1em',
   cursor: 'pointer',
   margin: '5px 5px 5px 5px',
-  // width: '100%',
+  // width: '50%',
 }
 
 const leftSecStyle = {
@@ -456,7 +452,28 @@ const projectHeaderStyle = {
   margin: '0px 15px 0px 15px',
 }
 
+const projectBoxStyle = {
+  margin: '0px 5px 0px 15px',
+  display: 'flex',
+  flexDirection: 'column',
+}
+const inputLabelStyle = {
+  textAlign: 'left',
+  margin: '0',
+  fontSize: '.8em',
+}
+const inputTextStyle = {
+  backgroundColor: desertSand,
+  margin: '0px 10px 0px 0px',
+  borderColor: mountbattenPink,
+  borderStyle: 'solid',
+  borderWidth: '1px',
+  borderRadius: '4px',
+  padding: '6px',
+  marginTop: '2px',
+}
+
 const errorStyle = {
-  color: 'red',
+  color: paynesGray2,
   fontSize: '.7em',
 }
