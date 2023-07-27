@@ -29,6 +29,7 @@ function App() {
   const [todoDueDate, setTodoDueDate] = useState()
   const [todoPriority, setTodoPriority] = useState(0) // default priority is low
   const [todoProject, setTodoProject] = useState('')
+  const [todoChecked, setTodoChecked] = useState(false)
   const priorityValueArr = ['Low', 'Medium', 'High']
   const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
 
@@ -65,6 +66,7 @@ function App() {
         date: dueDate ? dueDate.toISOString() : null,
         priority: priority, //when null, it's low priority
         project: project,
+        checked: todoChecked,
       },
     ]
 
@@ -78,6 +80,15 @@ function App() {
     setTodoProject('')
 
     setShowTodoInput(false)
+  }
+
+  const checkboxClicked = (name) => {
+    //update the array
+    const foundTodo = todoArr.find((todo) => {
+      return todo.name == name
+    })
+    foundTodo.checked = !foundTodo.checked
+    setTodoArr((todoArr) => [...todoArr])
   }
 
   const createProject = (projectName) => {
@@ -407,7 +418,10 @@ function App() {
               )}
             </div>
 
-            <TodoList listArr={visibleTodoArr} />
+            <TodoList
+              listArr={visibleTodoArr}
+              checkboxClicked={checkboxClicked}
+            />
           </div>
         </div>
       </div>

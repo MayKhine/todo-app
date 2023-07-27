@@ -1,4 +1,5 @@
 import { DateTime } from 'luxon'
+import { check } from 'prettier'
 
 let priorityColorNum = 0
 
@@ -13,12 +14,26 @@ export const TodoList = (props) => {
     return (
       <div
         key={index}
-        style={priorityColorNum == 0 ? bg1 : priorityColorNum == 1 ? bg2 : bg3}
+        // style={priorityColorNum == 0 ? bg1 : priorityColorNum == 1 ? bg2 : bg3}
+        style={bg}
       >
-        <div style={style1}>{e.name}</div>
-        {/* <div style={todoStyle2}>{priorityValueArr[e.priority]}</div> */}
-        <div style={style2}> {formattedDate || 'no due date'} </div>
-        <div style={style2}> {e.project}</div>
+        <input
+          type="checkbox"
+          checked={e.checked}
+          onChange={() => {
+            props.checkboxClicked(e.name)
+          }}
+        ></input>
+        <div className="sideBar" style={sideBarStyle1}></div>
+        <div style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
+          <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <div style={style1}>{e.name}</div>
+            <div style={style2}> {formattedDate || 'no due date'} </div>
+          </div>
+          <div style={{ alignSelf: 'flex-start', marginLeft: '8px' }}>
+            {e.project}
+          </div>
+        </div>
       </div>
     )
   })
@@ -33,13 +48,12 @@ const style1 = {
 }
 
 const style2 = {
-  margin: '8px 8px 8px 8px',
-  alignSelf: 'flex-end',
-  width: '100px',
+  margin: '8px 0px 8px 8px',
+  width: '90px',
 }
 
-const bg1 = {
-  backgroundColor: 'green',
+const bg = {
+  backgroundColor: 'gray',
   color: 'black',
   borderRadius: '4px',
   border: '1px solid transparent',
@@ -50,26 +64,14 @@ const bg1 = {
   flexWrap: 'wrap',
 }
 
-const bg2 = {
-  backgroundColor: 'yellow',
-  color: 'black',
-  borderRadius: '4px',
-  border: '1px solid transparent',
-  fontSize: '1em',
-  margin: '5px 5px 5px 5px',
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
+const sideBarStyle1 = {
+  borderLeft: '6px solid green',
 }
 
-const bg3 = {
-  backgroundColor: 'red',
-  color: 'black',
-  borderRadius: '4px',
-  border: '1px solid transparent',
-  fontSize: '1em',
-  margin: '5px 5px 5px 5px',
-  display: 'flex',
-  flexDirection: 'row',
-  flexWrap: 'wrap',
+const sideBarStyle2 = {
+  borderLeft: '6px solid yellow',
+}
+
+const sideBarStyle3 = {
+  borderLeft: '6px solid red',
 }
