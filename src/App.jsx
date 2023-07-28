@@ -510,10 +510,13 @@ const appStyle = {
   fontFamily: 'Bitter',
   fontSize: '15px',
   height: '100vh',
+  // height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
 }
 
 const headerStyle = {
-  height: '12%',
+  height: '50px',
   fontSize: '2em',
   textAlign: 'center',
   backgroundColor: roseTaupe,
@@ -523,11 +526,12 @@ const containerStyle = {
   display: 'flex',
   flexDirection: 'row',
   flexWrap: 'wrap',
+  flex: '1',
 }
 
 const addTodobuttonStyle = {
   color: 'black',
-  backgroundColor: melon,
+  backgroundColor: lightCoral,
   borderRadius: '4px',
   border: '1px solid transparent',
   fontSize: '1em',
@@ -553,11 +557,14 @@ const todoContainerStyle = {
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
+  // height: 'calc(100vh-100px)',
+  height: '100%',
+  alignContent: 'flex-start',
 }
 
 const todoBoxStyle = {
   width: '100%',
-  backgroundColor: 'lightgray',
+  // backgroundColor: 'lightgray',
 }
 
 const todoInputDivStyle = {

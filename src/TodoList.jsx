@@ -73,7 +73,7 @@ const style2 = {
 }
 
 const bg = {
-  backgroundColor: 'gray',
+  backgroundColor: '#E57E81ff',
   color: 'black',
   borderRadius: '4px',
   border: '1px solid transparent',
