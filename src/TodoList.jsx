@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
 import { check } from 'prettier'
-import { BiTrash } from 'react-icons/bi'
+import { BiTrash, BiListCheck } from 'react-icons/bi'
 
 let priorityColorNum = 0
 
@@ -83,20 +83,23 @@ const bg = {
   flexDirection: 'row',
   flexWrap: 'wrap',
 }
+const gray1 = '#b3d0df'
+const paynesGray = '#526C79ff'
+const paynesGray2 = '#285B75ff'
 
 const sideBarStyle1 = {
-  borderLeft: '6px solid green',
-  //   margin: '5px 5px 5px 15px',
+  borderLeft: '6px solid #b3d0df',
+  borderRadius: '8px',
 }
 
 const sideBarStyle2 = {
-  borderLeft: '6px solid yellow',
-  //   margin: '5px 5px 5px 15px',
+  borderLeft: '6px solid #447892',
+  borderRadius: '8px',
 }
 
 const sideBarStyle3 = {
-  borderLeft: '6px solid red',
-  //   margin: '5px 5px 5px 15px',
+  borderLeft: '6px solid #0f4864',
+  borderRadius: '8px',
 }
 
 const checkboxStyle = {

@@ -1,7 +1,7 @@
 #root {
   margin: 0 auto;
   text-align: center;
-  background-color: #c8ab9eff;
+  /* background-color: #94797eff; */
 }
 
 .toggleButton {
@@ -47,27 +47,7 @@
   padding-top: 20px;
 }
 
-/* .dateStyle {
-  .react-datepicker-wrapper,
-  .react-datepicker__input-container,
-  .react-datepicker__input-container input {
-    display: block;
-    width: 250px;
-    margin-right: 13px;
-    margin-left: 3px;
-    background-color: aqua;
-  }
-} */
-
 .dateStyle {
-  /* background-color: #e5b897ff; */
-  /* .react-datepicker-wrapper {
-    background-color: blue;
-  }
-  .react-datepicker__input-container {
-    background-color: blue;
-  } */
-
   .react-datepicker__input-container input {
     display: block;
     font-size: 1em;
@@ -94,6 +74,11 @@
 .projectItem:hover {
   cursor: pointer;
   background-color: #e57e81ff;
+}
+
+.projectItem.active {
+  background-color: gray;
+  /* font-weight: black; */
 }
 
 #leftSec {

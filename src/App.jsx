@@ -6,6 +6,7 @@ import { ProjectList } from './ProjectList'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DateTime } from 'luxon'
+import { BiTrash, BiListCheck } from 'react-icons/bi'
 
 function App() {
   const [todoArr, setTodoArr] = useState(
@@ -184,6 +185,7 @@ function App() {
     }
     return result
   }
+
   const showCurPage = (page, projectName, todoArr) => {
     switch (page) {
       case 'home':
@@ -221,6 +223,29 @@ function App() {
     setTodoArr(newTodoArr)
   }
 
+  const showPageHeader = () => {
+    let text = ''
+    switch (curPage) {
+      case 'home':
+        text = 'Home'
+        break
+      case 'today':
+        text = "Today's todos"
+        break
+      case 'week':
+        text = "This week's todos"
+        break
+      default:
+        text = 'Project - ' + curPage + "'s todos"
+    }
+
+    return (
+      <div style={{ fontSize: '1.5em', color: melon, marginTop: '8px' }}>
+        {text}
+      </div>
+    )
+  }
+
   useEffect(() => {
     localStorage.setItem('todoArr', JSON.stringify(todoArr))
   }, [todoArr])
@@ -231,10 +256,16 @@ function App() {
 
   return (
     <div style={appStyle}>
-      <div style={headerStyle}>TodoApp</div>
+      <div style={headerStyle}>
+        <BiListCheck
+          style={{ width: '50px', height: '50px', marginLeft: '8px' }}
+        />
+        <p style={{ margin: '0', paddingTop: '8px', paddingLeft: '8px' }}>
+          Todo App
+        </p>
+      </div>
 
       <div id="container">
-        {/* style={containerStyle}> */}
         <div id="leftSec">
           <div
             className="toggleButton"
@@ -254,10 +285,7 @@ function App() {
                 <li
                   id="Home"
                   className="projectItem"
-                  onClick={() =>
-                    // showHome(todoArr)
-                    showCurPage('home', null, todoArr)
-                  }
+                  onClick={() => showCurPage('home', null, todoArr)}
                 >
                   Home
                 </li>
@@ -356,7 +384,6 @@ function App() {
 
                 <ProjectList
                   projArr={projectArr}
-                  // showThisProject={showThisProject}
                   showCurPage={(page, projectName) =>
                     showCurPage(page, projectName, todoArr)
                   }
@@ -376,6 +403,7 @@ function App() {
           }}
         >
           <div className="todoContainer" style={todoContainerStyle}>
+            {showPageHeader()}
             <div id="todo" style={todoBoxStyle}>
               {!showTodoInput && (
                 <button
@@ -525,9 +553,9 @@ const appStyle = {
   fontFamily: 'Bitter',
   fontSize: '15px',
   height: '100vh',
-  // height: '100%',
   display: 'flex',
   flexDirection: 'column',
+  // backgroundColor: mountbattenPink,
 }
 
 const headerStyle = {
@@ -535,6 +563,8 @@ const headerStyle = {
   fontSize: '2em',
   textAlign: 'center',
   backgroundColor: roseTaupe,
+  display: 'flex',
+  flexDirection: 'row',
 }
 
 const containerStyle = {
