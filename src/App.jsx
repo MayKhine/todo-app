@@ -60,8 +60,6 @@ function App() {
   }
 
   const createTodo = (todo, dueDate, priority, project) => {
-    console.log('newTODO project: ', project)
-
     const newTodo = [
       ...todoArr,
       {
@@ -90,7 +88,6 @@ function App() {
   }
 
   const checkboxClicked = (name, projectName) => {
-    //update the array
     const foundTodo = todoArr.find((todo) => {
       return todo.name == name && todo.project == projectName
     })
@@ -107,9 +104,7 @@ function App() {
   }
 
   const showHome = (curTodoArr) => {
-    console.log('Does it contain latest update: ', curTodoArr)
     setVisibleTodoArr(curTodoArr)
-    console.log('SetVisibleTodoarry is updated', visibleTodoArr)
   }
 
   const showToday = (curTodoArr) => {
@@ -205,15 +200,14 @@ function App() {
       return true
     })
 
-    setTodoArr(newTodoArr)
-
     if (curPage != 'home' && curPage != 'today' && curPage != 'week') {
       showCurPage('project', curPage, newTodoArr)
     } else {
       showCurPage(curPage, null, newTodoArr)
     }
-    console.log(todoArr)
+    setTodoArr(newTodoArr)
   }
+
   useEffect(() => {
     localStorage.setItem('todoArr', JSON.stringify(todoArr))
   }, [todoArr])
@@ -226,7 +220,8 @@ function App() {
     <div style={appStyle}>
       <div style={headerStyle}>TodoApp</div>
 
-      <div id="container" style={containerStyle}>
+      <div id="container">
+        {/* style={containerStyle}> */}
         <div id="leftSec">
           <div
             className="toggleButton"
@@ -527,6 +522,7 @@ const containerStyle = {
   flexDirection: 'row',
   flexWrap: 'wrap',
   flex: '1',
+  // alignContent: 'flex-start',
 }
 
 const addTodobuttonStyle = {
@@ -539,6 +535,7 @@ const addTodobuttonStyle = {
   padding: '8px 8px 8px 8px',
   // textDecoration: 'underline',
   width: 'calc(100% - 12px)',
+  marginTop: '8px',
 }
 
 const buttonStyle = {
@@ -557,14 +554,10 @@ const todoContainerStyle = {
   width: '100%',
   display: 'flex',
   flexDirection: 'column',
-  // height: 'calc(100vh-100px)',
-  height: '100%',
-  alignContent: 'flex-start',
 }
 
 const todoBoxStyle = {
   width: '100%',
-  // backgroundColor: 'lightgray',
 }
 
 const todoInputDivStyle = {
