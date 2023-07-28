@@ -32,14 +32,14 @@ export const TodoList = (props) => {
               style={checkboxStyle}
               checked={e.checked}
               onChange={() => {
-                props.checkboxClicked(e.name)
+                props.checkboxClicked(e.name, e.project)
               }}
             ></input>
             <div style={style1}>{e.name}</div>
             <div style={style2}> {formattedDate || 'no due date'} </div>
             <BiTrash
               style={deleteButtonStyle}
-              onClick={() => props.deleteTodo(e.name)}
+              onClick={() => props.deleteTodo(e.name, e.project)}
             >
               Delete
             </BiTrash>

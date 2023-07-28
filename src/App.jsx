@@ -6,7 +6,7 @@ import { ProjectList } from './ProjectList'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DateTime } from 'luxon'
-import { BiTrash } from 'react-icons/bi'
+
 function App() {
   const [todoArr, setTodoArr] = useState(
     JSON.parse(localStorage.getItem('todoArr')) || []
@@ -34,6 +34,7 @@ function App() {
   const [todoChecked, setTodoChecked] = useState(false)
   const priorityValueArr = ['Low', 'Medium', 'High']
   const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
+  const [errorText, setErrorText] = useState('')
 
   const ProjectDropDown = (props) => {
     const pjList = props.projectArr.map((project, index) => {
@@ -88,11 +89,12 @@ function App() {
     setShowTodoInput(false)
   }
 
-  const checkboxClicked = (name) => {
+  const checkboxClicked = (name, projectName) => {
     //update the array
     const foundTodo = todoArr.find((todo) => {
-      return todo.name == name
+      return todo.name == name && todo.project == projectName
     })
+
     foundTodo.checked = !foundTodo.checked
     setTodoArr((todoArr) => [...todoArr])
   }
@@ -158,6 +160,22 @@ function App() {
     }
   }
 
+  const validateProjectInput = (text) => {
+    if (text.trim()) {
+      if (projectArr.includes(text.trim())) {
+        setErrorText('Error: Project names must be different.')
+        setValidation(false)
+        return false
+      }
+      setErrorText('')
+      return true
+    } else {
+      setErrorText('Error: This field cannot be empty.')
+      setValidation(false)
+      return false
+    }
+  }
+
   const showCurPage = (page, projectName, todoArr) => {
     switch (page) {
       case 'home':
@@ -179,8 +197,14 @@ function App() {
     }
   }
 
-  const deleteTodo = (todoName) => {
-    const newTodoArr = todoArr.filter((todo) => todo.name != todoName)
+  const deleteTodo = (todoName, projectName) => {
+    const newTodoArr = todoArr.filter((todo) => {
+      if (todo.name == todoName && todo.project == projectName) {
+        return false
+      }
+      return true
+    })
+
     setTodoArr(newTodoArr)
 
     if (curPage != 'home' && curPage != 'today' && curPage != 'week') {
@@ -285,9 +309,7 @@ function App() {
 
                         <div>
                           {!validation && (
-                            <div style={errorStyle}>
-                              Error: This field cannot be empty.
-                            </div>
+                            <div style={errorStyle}>{errorText}</div>
                           )}
                         </div>
                       </div>
@@ -305,8 +327,8 @@ function App() {
                         <button
                           style={buttonStyle}
                           onClick={() => {
-                            // setShowProjectInput(false)
-                            validateInput(projectText) &&
+                            // validateInput(projectText) &&
+                            validateProjectInput(projectText) &&
                               createProject(projectText)
                             // setShowProjectInput(false)
                           }}
