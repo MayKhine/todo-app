@@ -17,14 +17,15 @@ export const TodoList = (props) => {
         // style={priorityColorNum == 0 ? bg1 : priorityColorNum == 1 ? bg2 : bg3}
         style={bg}
       >
+        <div className="sideBar" style={sideBarStyle1}></div>
         <input
           type="checkbox"
+          style={checkboxStyle}
           checked={e.checked}
           onChange={() => {
             props.checkboxClicked(e.name)
           }}
         ></input>
-        <div className="sideBar" style={sideBarStyle1}></div>
         <div style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
             <div style={style1}>{e.name}</div>
@@ -66,12 +67,19 @@ const bg = {
 
 const sideBarStyle1 = {
   borderLeft: '6px solid green',
+  //   margin: '5px 5px 5px 15px',
 }
 
 const sideBarStyle2 = {
   borderLeft: '6px solid yellow',
+  //   margin: '5px 5px 5px 15px',
 }
 
 const sideBarStyle3 = {
   borderLeft: '6px solid red',
+  //   margin: '5px 5px 5px 15px',
+}
+
+const checkboxStyle = {
+  width: '1.2em',
 }
