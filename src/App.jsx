@@ -17,6 +17,8 @@ function App() {
     JSON.parse(localStorage.getItem('projectArr')) || []
   )
 
+  const [curPage, setCurPage] = useState()
+
   const [showTodoInput, setShowTodoInput] = useState(false)
   const [showProjectInput, setShowProjectInput] = useState(false)
 
@@ -72,8 +74,12 @@ function App() {
 
     setTodoArr(newTodo)
 
-    // setVisibleTodoArr(newTodo)
-    showHome(newTodo)
+    if (curPage != 'home' && curPage != 'today' && curPage != 'week') {
+      showCurPage('project', curPage, newTodo)
+    } else {
+      showCurPage(curPage, null, newTodo)
+    }
+
     setTodoText('')
     setTodoDueDate()
     setTodoPriority(0)
@@ -133,7 +139,7 @@ function App() {
     setVisibleTodoArr(curTodoArrToPrint)
   }
 
-  const showThisProject = (projectName) => {
+  const showThisProject = (projectName, todoArr) => {
     const curTodoArrToPrint = todoArr.filter((todo) => {
       if (todo.project == projectName) {
         return true
@@ -149,6 +155,27 @@ function App() {
     } else {
       setValidation(false)
       return false
+    }
+  }
+
+  const showCurPage = (page, projectName, todoArr) => {
+    switch (page) {
+      case 'home':
+        showHome(todoArr)
+        setCurPage(page)
+        break
+      case 'today':
+        showToday(todoArr)
+        setCurPage(page)
+        break
+      case 'week':
+        showThisWeek(todoArr)
+        setCurPage(page)
+        break
+      case 'project':
+        showThisProject(projectName, todoArr)
+        setCurPage(projectName)
+        break
     }
   }
 
@@ -184,7 +211,10 @@ function App() {
                 <li
                   id="Home"
                   className="projectItem"
-                  onClick={() => showHome(todoArr)}
+                  onClick={() =>
+                    // showHome(todoArr)
+                    showCurPage('home', null, todoArr)
+                  }
                 >
                   Home
                 </li>
@@ -192,7 +222,8 @@ function App() {
                   id="Today"
                   className="projectItem"
                   onClick={() => {
-                    showToday(todoArr)
+                    // showToday(todoArr)
+                    showCurPage('today', null, todoArr)
                   }}
                 >
                   Today
@@ -201,7 +232,8 @@ function App() {
                   id="ThisWeek"
                   className="projectItem"
                   onClick={() => {
-                    showThisWeek(todoArr)
+                    // showThisWeek(todoArr)
+                    showCurPage('week', null, todoArr)
                   }}
                 >
                   This Week
@@ -277,7 +309,10 @@ function App() {
 
                 <ProjectList
                   projArr={projectArr}
-                  showThisProject={showThisProject}
+                  // showThisProject={showThisProject}
+                  showCurPage={(page, projectName) =>
+                    showCurPage(page, projectName, todoArr)
+                  }
                   onClick={(e) => {
                     console.log('Pj list e: ', e)
                   }}

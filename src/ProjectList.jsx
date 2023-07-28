@@ -7,7 +7,8 @@ export const ProjectList = (props) => {
         className="projectItem"
         key={index}
         onClick={() => {
-          props.showThisProject(projName)
+          //   props.showThisProject(projName)
+          props.showCurPage('project', projName)
         }}
       >
         {projName}
