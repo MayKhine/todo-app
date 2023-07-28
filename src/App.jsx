@@ -73,6 +73,7 @@ function App() {
 
     setTodoArr(newTodo)
 
+    console.log('curpage', curPage)
     if (curPage != 'home' && curPage != 'today' && curPage != 'week') {
       showCurPage('project', curPage, newTodo)
     } else {
@@ -145,16 +146,6 @@ function App() {
     setVisibleTodoArr(curTodoArrToPrint)
   }
 
-  const validateInput = (text) => {
-    if (text.trim()) {
-      setValidation(true)
-      return true
-    } else {
-      setValidation(false)
-      return false
-    }
-  }
-
   const validateProjectInput = (text) => {
     if (text.trim()) {
       if (projectArr.includes(text.trim())) {
@@ -171,6 +162,28 @@ function App() {
     }
   }
 
+  const validateTodoInput = (text, projectName) => {
+    let result = true
+    if (text.trim()) {
+      //check if this task already exist in the project
+      todoArr.forEach((todo) => {
+        if (todo.name == text.trim() && todo.project == projectName) {
+          if (projectName) {
+            setErrorText('Error: This todo already exists in the same project.')
+          } else {
+            setErrorText('Error: This todo already exists.')
+          }
+          setValidation(false)
+          result = false
+        }
+      })
+    } else {
+      setErrorText('Error: This field cannot be empty.')
+      setValidation(false)
+      result = false
+    }
+    return result
+  }
   const showCurPage = (page, projectName, todoArr) => {
     switch (page) {
       case 'home':
@@ -280,7 +293,13 @@ function App() {
                     <li
                       className="projectItem"
                       onClick={() => {
+                        setErrorText('')
+                        setValidation(true)
                         setShowTodoInput(false)
+                        setTodoText('')
+                        setTodoDueDate()
+                        setTodoPriority(0)
+                        setTodoProject('')
                         setShowProjectInput(true)
                       }}
                     >
@@ -362,6 +381,9 @@ function App() {
                 <button
                   style={addTodobuttonStyle}
                   onClick={() => {
+                    setErrorText('')
+                    setValidation(true)
+                    setProjectText('')
                     setShowProjectInput(false)
                     setShowTodoInput(true)
                   }}
@@ -379,16 +401,10 @@ function App() {
                       style={inputTextStyle}
                       value={todoText}
                       onChange={(e) => {
-                        // console.log('e', e.target.value)
-                        // validateInput(e.target.value) &&
                         setTodoText(e.target.value)
                       }}
                     ></input>
-                    {!validation && (
-                      <div style={errorStyle}>
-                        Error: This field cannot be empty.
-                      </div>
-                    )}
+                    {!validation && <div style={errorStyle}>{errorText}</div>}
                   </div>
                   <div
                     style={{
@@ -455,6 +471,10 @@ function App() {
                       onClick={() => {
                         setValidation(true)
                         setShowTodoInput(false)
+                        setTodoText('')
+                        setTodoDueDate()
+                        setTodoPriority(0)
+                        setTodoProject('')
                       }}
                     >
                       X
@@ -462,7 +482,7 @@ function App() {
                     <button
                       style={buttonStyle}
                       onClick={() => {
-                        validateInput(todoText) &&
+                        validateTodoInput(todoText, todoProject) &&
                           createTodo(
                             todoText,
                             todoDueDate,
