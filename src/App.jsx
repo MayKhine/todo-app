@@ -6,7 +6,7 @@ import { ProjectList } from './ProjectList'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DateTime } from 'luxon'
-import { BiPlusCircle } from 'react-icons/bi'
+import { BiTrash } from 'react-icons/bi'
 function App() {
   const [todoArr, setTodoArr] = useState(
     JSON.parse(localStorage.getItem('todoArr')) || []
@@ -179,6 +179,17 @@ function App() {
     }
   }
 
+  const deleteTodo = (todoName) => {
+    const newTodoArr = todoArr.filter((todo) => todo.name != todoName)
+    setTodoArr(newTodoArr)
+
+    if (curPage != 'home' && curPage != 'today' && curPage != 'week') {
+      showCurPage('project', curPage, newTodoArr)
+    } else {
+      showCurPage(curPage, null, newTodoArr)
+    }
+    console.log(todoArr)
+  }
   useEffect(() => {
     localStorage.setItem('todoArr', JSON.stringify(todoArr))
   }, [todoArr])
@@ -338,7 +349,7 @@ function App() {
                     setShowTodoInput(true)
                   }}
                 >
-                  Add todo
+                  + Add Todo
                 </button>
               )}
               {showTodoInput && (
@@ -413,7 +424,6 @@ function App() {
                     <label style={inputLabelStyle}>Project</label>
                     <div
                       style={{
-                        // width: 'calc(100%-10px)',
                         paddingRight: '8px',
                       }}
                     >
@@ -435,8 +445,6 @@ function App() {
                     <button
                       style={buttonStyle}
                       onClick={() => {
-                        // setShowTodoInput(false)
-
                         validateInput(todoText) &&
                           createTodo(
                             todoText,
@@ -456,6 +464,7 @@ function App() {
             <TodoList
               listArr={visibleTodoArr}
               checkboxClicked={checkboxClicked}
+              deleteTodo={deleteTodo}
             />
           </div>
         </div>
@@ -502,7 +511,7 @@ const addTodobuttonStyle = {
   fontSize: '1em',
   cursor: 'pointer',
   padding: '8px 8px 8px 8px',
-  textDecoration: 'underline',
+  // textDecoration: 'underline',
   width: 'calc(100% - 12px)',
 }
 

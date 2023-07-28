@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { check } from 'prettier'
+import { BiTrash } from 'react-icons/bi'
 
 let priorityColorNum = 0
 
@@ -12,26 +13,44 @@ export const TodoList = (props) => {
     priorityColorNum = e.priority
 
     return (
-      <div
-        key={index}
-        // style={priorityColorNum == 0 ? bg1 : priorityColorNum == 1 ? bg2 : bg3}
-        style={bg}
-      >
-        <div className="sideBar" style={sideBarStyle1}></div>
-        <input
-          type="checkbox"
-          style={checkboxStyle}
-          checked={e.checked}
-          onChange={() => {
-            props.checkboxClicked(e.name)
-          }}
-        ></input>
+      <div key={index} style={bg}>
+        <div
+          className="sideBar"
+          style={
+            priorityColorNum == 0
+              ? sideBarStyle1
+              : priorityColorNum == 1
+              ? sideBarStyle2
+              : sideBarStyle3
+          }
+        ></div>
+
         <div style={{ display: 'flex', flexDirection: 'column', flex: '1' }}>
           <div style={{ display: 'flex', flexDirection: 'row' }}>
+            <input
+              type="checkbox"
+              style={checkboxStyle}
+              checked={e.checked}
+              onChange={() => {
+                props.checkboxClicked(e.name)
+              }}
+            ></input>
             <div style={style1}>{e.name}</div>
             <div style={style2}> {formattedDate || 'no due date'} </div>
+            <BiTrash
+              style={deleteButtonStyle}
+              onClick={() => props.deleteTodo(e.name)}
+            >
+              Delete
+            </BiTrash>
           </div>
-          <div style={{ alignSelf: 'flex-start', marginLeft: '8px' }}>
+          <div
+            style={{
+              alignSelf: 'flex-start',
+              marginLeft: '35px',
+              fontSize: '.8em',
+            }}
+          >
             {e.project}
           </div>
         </div>
@@ -81,5 +100,22 @@ const sideBarStyle3 = {
 }
 
 const checkboxStyle = {
-  width: '1.2em',
+  width: '20px',
+}
+
+const deleteButtonStyle = {
+  color: 'black',
+  //   backgroundColor: 'pink',
+  borderRadius: '4px',
+  border: '1px solid transparent',
+  fontSize: '1em',
+  cursor: 'pointer',
+  height: '20px',
+  width: '20px',
+  alignSelf: 'center',
+  marginLeft: '8px',
+  textAlign: 'center',
+  marginRight: '8px',
+  paddingBottom: '4px',
+  //   textDecoration: 'underline',
 }
