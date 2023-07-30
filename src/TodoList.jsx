@@ -1,5 +1,4 @@
 import { DateTime } from 'luxon'
-import { check } from 'prettier'
 import { BiTrash, BiListCheck } from 'react-icons/bi'
 
 let priorityColorNum = 0
@@ -57,7 +56,6 @@ export const TodoList = (props) => {
       </div>
     )
   })
-  // return <>Hi Helloddd</>
   return <>{output}</>
 }
 
@@ -108,7 +106,6 @@ const checkboxStyle = {
 
 const deleteButtonStyle = {
   color: 'black',
-  //   backgroundColor: 'pink',
   borderRadius: '4px',
   border: '1px solid transparent',
   fontSize: '1em',
@@ -120,5 +117,4 @@ const deleteButtonStyle = {
   textAlign: 'center',
   marginRight: '8px',
   paddingBottom: '4px',
-  //   textDecoration: 'underline',
 }
