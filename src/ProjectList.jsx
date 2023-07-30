@@ -1,5 +1,5 @@
 import './App.css'
-import { BiTrash, BiListCheck } from 'react-icons/bi'
+import { BiTrash } from 'react-icons/bi'
 
 export const ProjectList = (props) => {
   const output = props.projArr?.map((projName, index) => {

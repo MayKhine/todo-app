@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon'
-import { BiTrash, BiListCheck } from 'react-icons/bi'
+import { BiTrash } from 'react-icons/bi'
 
 let priorityColorNum = 0
 
