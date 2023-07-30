@@ -641,6 +641,6 @@ const inputTextStyle = {
 }
 
 const errorStyle = {
-  color: paynesGray2,
+  color: 'red',
   fontSize: '.7em',
 }
