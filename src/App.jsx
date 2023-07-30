@@ -206,6 +206,30 @@ function App() {
     }
   }
 
+  const deleteProject = (projectName) => {
+    const newProjectArr = projectArr.filter((pjName) => {
+      return pjName != projectName
+    })
+
+    const newTodoArr = todoArr.filter((todo) => {
+      if (todo.project == projectName) {
+        return false
+      } else {
+        return true
+      }
+    })
+    if (curPage == projectName) {
+      setCurPage('home')
+      showCurPage('home', null, newTodoArr)
+    } else if (curPage != 'home' && curPage != 'today' && curPage != 'week') {
+      showCurPage('project', curPage, newTodoArr)
+    } else {
+      showCurPage(curPage, null, newTodoArr)
+    }
+
+    setProjectArr(newProjectArr)
+    setTodoArr(newTodoArr)
+  }
   const deleteTodo = (todoName, projectName) => {
     const newTodoArr = todoArr.filter((todo) => {
       if (todo.name == todoName && todo.project == projectName) {
@@ -379,9 +403,10 @@ function App() {
                   showCurPage={(page, projectName) =>
                     showCurPage(page, projectName, todoArr)
                   }
-                  onClick={(e) => {
-                    console.log('Pj list e: ', e)
-                  }}
+                  // onClick={(e) => {
+                  //   console.log('Pj list e: ', e)
+                  // }}
+                  deleteProject={deleteProject}
                 ></ProjectList>
               </ul>
             </div>
