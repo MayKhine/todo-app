@@ -6,19 +6,19 @@ import { ProjectList } from './ProjectList'
 import DatePicker from 'react-datepicker'
 import 'react-datepicker/dist/react-datepicker.css'
 import { DateTime } from 'luxon'
-import { BiTrash, BiListCheck } from 'react-icons/bi'
+import { BiListCheck } from 'react-icons/bi'
 
 function App() {
   const [todoArr, setTodoArr] = useState(
     JSON.parse(localStorage.getItem('todoArr')) || []
   )
 
-  const [visibleTodoArr, setVisibleTodoArr] = useState(todoArr) // null
+  const [visibleTodoArr, setVisibleTodoArr] = useState(todoArr)
   const [projectArr, setProjectArr] = useState(
     JSON.parse(localStorage.getItem('projectArr')) || []
   )
 
-  const [curPage, setCurPage] = useState()
+  const [curPage, setCurPage] = useState('home')
 
   const [showTodoInput, setShowTodoInput] = useState(false)
   const [showProjectInput, setShowProjectInput] = useState(false)
@@ -30,10 +30,9 @@ function App() {
   const [todoText, setTodoText] = useState('')
   const [menuActive, setMenuActive] = useState(false)
   const [todoDueDate, setTodoDueDate] = useState()
-  const [todoPriority, setTodoPriority] = useState(0) // default priority is low
+  const [todoPriority, setTodoPriority] = useState(0)
   const [todoProject, setTodoProject] = useState('')
   const [todoChecked, setTodoChecked] = useState(false)
-  const priorityValueArr = ['Low', 'Medium', 'High']
   const projectListClasses = `projectList ${menuActive ? 'active' : ''}`
   const [errorText, setErrorText] = useState('')
 
@@ -310,12 +309,7 @@ function App() {
                   This Week
                 </li>
 
-                <div
-                  className="projectHeader"
-                  // style={projectHeaderStyle}
-                >
-                  Projects
-                </div>
+                <div className="projectHeader">Projects</div>
                 <div className="project">
                   {!showProjectInput && (
                     <li
@@ -369,10 +363,8 @@ function App() {
                         <button
                           style={buttonStyle}
                           onClick={() => {
-                            // validateInput(projectText) &&
                             validateProjectInput(projectText) &&
                               createProject(projectText)
-                            // setShowProjectInput(false)
                           }}
                         >
                           Add
@@ -398,7 +390,6 @@ function App() {
         <div
           id="rightSec"
           style={{
-            // backgroundColor: 'lightblue',
             flex: '1',
           }}
         >
@@ -555,7 +546,6 @@ const appStyle = {
   height: '100vh',
   display: 'flex',
   flexDirection: 'column',
-  // backgroundColor: mountbattenPink,
 }
 
 const headerStyle = {
@@ -572,27 +562,25 @@ const containerStyle = {
   flexDirection: 'row',
   flexWrap: 'wrap',
   flex: '1',
-  // alignContent: 'flex-start',
 }
 
 const addTodobuttonStyle = {
   color: 'black',
   backgroundColor: lightCoral,
   borderRadius: '4px',
-  border: '1px solid transparent',
+  border: '1px solid' + mountbattenPink,
   fontSize: '1em',
   cursor: 'pointer',
   padding: '8px 8px 8px 8px',
-  // textDecoration: 'underline',
   width: 'calc(100% - 12px)',
   marginTop: '8px',
 }
 
 const buttonStyle = {
-  color: 'white',
-  backgroundColor: paynesGray2,
+  color: 'black',
+  backgroundColor: 'lightCoral',
   borderRadius: '4px',
-  border: '1px solid transparent',
+  border: '1px solid' + mountbattenPink,
   padding: '.4em .4em',
   fontSize: '1em',
   cursor: 'pointer',
@@ -616,6 +604,7 @@ const todoInputDivStyle = {
   paddingTop: '8px',
   paddingLeft: '8px',
 }
+
 const projectBoxStyle = {
   margin: '0px 5px 0px 15px',
   display: 'flex',
@@ -625,7 +614,6 @@ const projectBoxStyle = {
 const inputDropDownStyle = {
   width: '100%',
   backgroundColor: desertSand,
-  // margin: '0px 10px 0px 0px',
   borderColor: mountbattenPink,
   borderStyle: 'solid',
   borderWidth: '1px',
@@ -638,6 +626,7 @@ const inputLabelStyle = {
   textAlign: 'left',
   margin: '0',
   fontSize: '.8em',
+  color: melon,
 }
 
 const inputTextStyle = {
